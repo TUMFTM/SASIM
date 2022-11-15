@@ -2,8 +2,8 @@ from typing import List
 
 from classes.Costs.ExternalCosts import ExternalCosts
 from classes.Costs.InternalCosts import InternalCosts
-from classes.Location import Location
 from classes.Enum.SegmentType import AbstractSegmentType
+from classes.Location import Location
 from classes.Vehicle.Vehicle import Vehicle
 
 
@@ -30,7 +30,7 @@ class AbstractSegment:
 
 # MvgSegments are created automatically, when MvgTrip is created. Segments are part of the Mvg-Api output
 
-# this is an abstract class for segments: List[Segment] of a trip: Trip
+# this is an abstract class for segments: List[segment] of a trip: trip
 class AbstractRoutingSegment(AbstractSegment):
 
     def __receive_response(self, start_location: Location, end_location: Location, segment_type: AbstractSegmentType):

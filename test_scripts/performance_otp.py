@@ -9,8 +9,8 @@ from classes.Trip.SimpleOtpTrip import SimpleOtpTrip
 from classes.Vehicle.IndividualVehicle import IndividualVehicle
 from classes.Vehicle.SharingVehicle import SharingVehicle
 
-# start_location = Location(address="Arcisstraße 21, München")
-# end_location = Location(address="Emmy-Noether-Str. 2, München")
+# start_location = location(address="Arcisstraße 21, München")
+# end_location = location(address="Emmy-Noether-Str. 2, München")
 
 car = IndividualVehicle(IndividualVehicleType.CAR, PropulsionType.PETROL)
 bicycle = IndividualVehicle(IndividualVehicleType.BICYCLE, PropulsionType.MUSCLE)

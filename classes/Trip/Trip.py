@@ -1,4 +1,4 @@
-# this is an abstract class for a trip: Trip
+# this is an abstract class for a trip: trip
 class Trip:
 
     def get_duration(self):
@@ -32,4 +32,3 @@ class Trip:
 
     def get_mobi_score(self):
         pass
-

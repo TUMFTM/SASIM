@@ -1,11 +1,31 @@
 from flask import Flask, request
+from flask import render_template
 from flask_cors import CORS
-import csv
 
 from rest_api_controller import get_single_trip_from_address
 
 app = Flask(__name__)
 CORS(app)
+
+FLUTTER_WEB_APP = 'templates'
+
+@app.route('/web/')
+def render_page_web():
+    return render_template('index.html')
+
+@app.route('/web/<path:name>')
+def return_flutter_doc(name):
+
+    datalist = str(name).split('/')
+    DIR_NAME = FLUTTER_WEB_APP
+
+    if len(datalist) > 1:
+        for i in range(0, len(datalist) - 1):
+            DIR_NAME += '/' + datalist[i]
+
+@app.route('/hello/')
+def say_hello():
+    return ('Hello world')
 
 # get request to plan a route with one option and a start- and end-location
 @app.route('/trip_with_segments', methods=['GET'])

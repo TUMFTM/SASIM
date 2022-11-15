@@ -1,7 +1,7 @@
+import time
 from datetime import datetime
 from typing import List
-import time
-import csv
+
 import mvg_api
 import pandas as pd
 
@@ -11,7 +11,8 @@ from classes.Location import Location
 from classes.Segment.MvgSegment import MvgSegment
 from classes.Vehicle.IndividualVehicle import IndividualVehicle
 from classes.Vehicle.UrbanPublicVehicle import UrbanPublicVehicle
-from engines.geo_functions import calculate_total_diatance_from_location_list
+from engines.geo_functions import calculate_total_distance_from_location_list
+
 
 def get_mvg_response(start_location: Location, end_location: Location, input_time: datetime = None):
     start = time.time()
@@ -34,11 +35,11 @@ def get_mvg_response(start_location: Location, end_location: Location, input_tim
 
 
 def get_mvg_segments(response) -> List[MvgSegment]:
-
     trip = response[0].get('connectionPartList')
 
     # loop over whole set of response
     return create_mvg_segments(trip)
+
 
 # this function is not used, but can be useful, if the selection between multiple PT trips should be implemented
 
@@ -52,11 +53,10 @@ def get_multiple_mvg_trips(start_location: Location, end_location: Location, inp
         duration = float(sum(list(map(lambda x: x.get_duration(), trip))))
         trips.append((trip, segment_types, duration))
 
-
     return trips
 
-def create_mvg_segments(mvg_trip):
 
+def create_mvg_segments(mvg_trip):
     result = []
     segments: List[MvgSegment] = []
 
@@ -82,7 +82,7 @@ def create_mvg_segments(mvg_trip):
 
         path = mvg_trip[i].get('path')
         path_locations = get_mvg_path_as_locations(path)
-        distance = calculate_total_diatance_from_location_list(path_locations) / 1000
+        distance = calculate_total_distance_from_location_list(path_locations) / 1000
         departure = mvg_trip[i].get('departure')
         arrival = mvg_trip[i].get('arrival')
 
@@ -106,7 +106,7 @@ def create_mvg_segments(mvg_trip):
             duration = 0
             interchange_path = mvg_trip[i].get('interchangePath')
             interchange_path_locations = get_mvg_path_as_locations(interchange_path)
-            distance = calculate_total_diatance_from_location_list(interchange_path_locations) / 1000
+            distance = calculate_total_distance_from_location_list(interchange_path_locations) / 1000
             departure = mvg_trip[i].get('departure')
             arrival = mvg_trip[i].get('arrival')
             from_zone = 'walk'
@@ -120,8 +120,6 @@ def create_mvg_segments(mvg_trip):
 
 
 def get_mvg_vehicle(connectionPartType: str) -> UrbanPublicVehicle or IndividualVehicle:
-
-
     if (connectionPartType == 'UBAHN'):
         vehicle = UrbanPublicVehicle(vehicle_type=UrbanPublicVehicleType.UBAHN)
 
@@ -138,20 +136,21 @@ def get_mvg_vehicle(connectionPartType: str) -> UrbanPublicVehicle or Individual
         vehicle = IndividualVehicle(vehicle_type=IndividualVehicleType.WALK)
 
     else:
-        print("MVG Segment Typ " + str(connectionPartType) + " unbekannt")
+        print("MVG segment Typ " + str(connectionPartType) + " unbekannt")
         vehicle = None
 
     return vehicle
 
-# convert mvg waypoints in a list of locations: List[Location]
+
+# convert mvg waypoints in a list of locations: List[location]
 def get_mvg_path_as_locations(path: dict) -> List[Location]:
     df_path = pd.DataFrame(path)
     df_locations = df_path.apply(lambda x: Location(latitude=x['latitude'], longitude=x['longitude']), axis=1)
     list_locations = df_locations.values.tolist()
     return list_locations
 
+
 def get_mvv_tarif_zone(mvg_response):
     mvg_tarif_zone = mvg_response[0].get('efaTicketIds')[0]
 
     return mvg_tarif_zone
-

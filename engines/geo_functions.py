@@ -9,7 +9,7 @@ from classes.Location import Location
 def get_distance(start_coords, end_coords):
     return int(geopy.distance.distance(start_coords, end_coords).m)
 
-def calculate_total_diatance_from_location_list(list_location: List[Location]):
+def calculate_total_distance_from_location_list(list_location: List[Location]):
 
     length = len(list_location)
 

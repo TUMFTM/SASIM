@@ -1,5 +1,6 @@
 from engines.geocoder import get_location
 
+
 class Location:
 
     def __init__(self, latitude: float = 0.0, longitude: float = 0.0, address: str = ""):
@@ -10,7 +11,7 @@ class Location:
         self.__set_parameters(self.latitude, self.longitude, self.address)
 
     def get_coordinates(self) -> (float, float):
-        return(self.latitude, self.longitude)
+        return (self.latitude, self.longitude)
 
     def get_longitude(self) -> float:
         return self.longitude
@@ -40,9 +41,9 @@ class Location:
                 self.longitude = location.longitude
 
             else:
-                print("\nAdresse wurde nicht gfunden. \nGeben sie die latitude und longitude Werte an oder eine korrekte Adresse")
+                print(
+                    "\nAdresse wurde nicht gfunden. \nGeben sie die latitude und longitude Werte an oder eine korrekte Adresse")
 
         if (latitude == 0.0 and longitude == 0.0 and address == ""):
-            print("\nLocation objekte müssen entweder latitude und longitude oder addresse enthalten")
+            print("\nlocation objekte müssen entweder latitude und longitude oder addresse enthalten")
             return 0
-
