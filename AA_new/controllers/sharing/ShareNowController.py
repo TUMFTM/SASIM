@@ -59,7 +59,7 @@ class ShareNowController:
             vehicle_location = Location(lat=vehicle_result[i].get('geoCoordinate')['latitude'],
                                         lon=vehicle_result[i].get('geoCoordinate')['longitude'])
 
-            distance = self.geo_helper.get_distance((vehicle_location.lat, vehicle_location.lon), (start_location.lat, start_location.lon))
+            distance = self.geo_helper.get_distance(start_location=vehicle_location, end_location=start_location)
             distances.append(distance)
 
 
@@ -72,13 +72,4 @@ class ShareNowController:
 
         return closest_vehicle_location
 
-## TESTING
 
-# Ansprengerstr. 22
-lat1 = 48.1663834
-lon1 = 11.5748712
-
-loc1 = Location(lat=lat1, lon=lon1)
-
-sn_controller = ShareNowController()
-print(sn_controller.get_closest_vehicle(loc1))

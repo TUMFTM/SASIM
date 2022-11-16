@@ -5,15 +5,15 @@ from typing import List
 
 import mvg_api
 
+from AA_new.controllers.mvv.MvvHelper import MvvHelper
+from AA_new.controllers.mvv.MvvHelper import MvvSegmentData
+from AA_new.controllers.mvv.MvvHelper import MvvSegmentType
+from AA_new.controllers.mvv.MvvHelper import MvvTripData
 from AA_new.entities_new.location.Location import Location
 from AA_new.enums.mode.IndividualMode import IndividualMode
 from AA_new.enums.mode.PublicTransportMode import PublicTransportMode
 from AA_new.enums.tarif_zone.MvvTarifZone import MvvTarifZone
 from AA_new.helpers.GeoHelper import GeoHelper
-from MvvHelper import MvvData
-from MvvHelper import MvvHelper
-from MvvHelper import MvvSegment
-from MvvHelper import MvvSegmentType
 
 
 class MvvController:
@@ -22,7 +22,7 @@ class MvvController:
         self.mvv_helper = MvvHelper()
         self.geo_helper = GeoHelper()
 
-    def get_mvv_waypoints(self) -> List[List[Location]]:
+    def get_mvv_waypoints(self, response) -> List[List[Location]]:
         pass
 
     def get_mvv_modes(self) -> List[PublicTransportMode]:
@@ -59,13 +59,13 @@ class MvvController:
 
         return response
 
-    def get_mvv_segment_data(self, response) -> MvvData:
+    def get_mvv_trip_data(self, response) -> MvvTripData:
 
         global path
         mvv_trip = response[0].get('connectionPartList')
 
         result = []
-        segments: List[MvvSegment] = []
+        segments: List[MvvSegmentData] = []
 
         # loop over whole set of trip
         for i in range(len(mvv_trip)):
@@ -74,7 +74,7 @@ class MvvController:
 
             if (mvv_trip[i].get('connectionPartType') == 'TRANSPORTATION'):
                 mode = self.mvv_helper.get_mvv_mode(mvv_trip[i].get('product'))
-                mvv_segment_type = MvgSegmentType.TRANSPORTATION
+                mvv_segment_type = MvvSegmentType.TRANSPORTATION
                 from_zone = mvv_trip[i].get('from').get('tariffZones')
                 to_zone = mvv_trip[i].get('to').get('tariffZones')
 
@@ -82,14 +82,16 @@ class MvvController:
                 mode = self.mvv_helper.get_mvv_mode(mvv_trip[i].get('connectionPartType'))
                 if (i == 0):
                     mvv_segment_type = MvvSegmentType.WALK_THERE
+                    from_zone = mvv_trip[i].get('to').get('tariffZones')
+                    to_zone = mvv_trip[i].get('to').get('tariffZones')
                 else:
                     mvv_segment_type = MvvSegmentType.WALK_AWAY
-                from_zone = MvvTarifZone.WALK
-                to_zone = MvvTarifZone.WALK
+                    from_zone = mvv_trip[i].get('from').get('tariffZones')
+                    to_zone = mvv_trip[i].get('from').get('tariffZones')
 
             path = mvv_trip[i].get('path')
             path_locations = self.mvv_helper.get_mvv_path_as_locations(path)
-            distance = self.geo_helper.calculate_total_distance_from_location_list(path_locations) / 1000
+            distance = self.geo_helper.calculate_total_distance_from_location_list(path_locations)
             departure = mvv_trip[i].get('departure')
             arrival = mvv_trip[i].get('arrival')
 
@@ -102,15 +104,15 @@ class MvvController:
 
             result.append(result_element)
             segments.append(
-                MvvSegment(duration=duration,
-                           distance=distance,
-                           waypoints=path_locations,
-                           mode=mode,
-                           segment_type = mvv_segment_type,
-                           departure=departure,
-                           arrival=arrival,
-                           from_tarif_zone=from_zone,
-                           to_tarif_zone=to_zone))
+                MvvSegmentData(duration=duration,
+                               distance=distance,
+                               waypoints=path_locations,
+                               mode=mode,
+                               segment_type=mvv_segment_type,
+                               departure=departure,
+                               arrival=arrival,
+                               from_tarif_zone=from_zone,
+                               to_tarif_zone=to_zone))
 
             # interchangePath is part of a connectionPart, but needs to generate a seperate WALK segment
             if (mvv_trip[i].get('interchangePath') != []):
@@ -118,39 +120,29 @@ class MvvController:
                 mvv_segment_type = MvvSegmentType.INTERCHANGE
                 duration = 0
                 interchange_path = mvv_trip[i].get('interchangePath')
-                interchange_path_locations = get_mvg_path_as_locations(interchange_path)
-                distance = calculate_total_distance_from_location_list(interchange_path_locations) / 1000
+                interchange_path_locations = self.mvv_helper.get_mvv_path_as_locations(interchange_path)
+                distance = self.geo_helper.calculate_total_distance_from_location_list(interchange_path_locations)
                 departure = mvv_trip[i].get('departure')
                 arrival = mvv_trip[i].get('arrival')
 
-                segments.append(MvvSegment(duration=duration,
-                                           distance=distance,
-                                           waypoints=interchange_path_locations,
-                                           mode=interchange_mode,
-                                           segment_type = mvv_segment_type,
-                                           departure=departure,
-                                           arrival=arrival,
-                                           from_tarif_zone=from_zone,
-                                           to_tarif_zone=to_zone))
+                segments.append(MvvSegmentData(duration=duration,
+                                               distance=distance,
+                                               waypoints=interchange_path_locations,
+                                               mode=interchange_mode,
+                                               segment_type=mvv_segment_type,
+                                               departure=departure,
+                                               arrival=arrival,
+                                               from_tarif_zone=from_zone,
+                                               to_tarif_zone=to_zone))
 
         trip_from_tarif_zone = segments[0].from_tarif_zone
         trip_to_tarif_zone = segments[0].to_tarif_zone
-        mvv_data = MvvData(mvv_trip=segments, from_tarf_zone=trip_from_tarif_zone, to_tarif_zone=trip_to_tarif_zone)
+        mvv_ticket_name = response[0].get('efaTicketIds')[0]
+
+        mvv_data = MvvTripData(mvv_trip=segments, from_tarf_zone=trip_from_tarif_zone, to_tarif_zone=trip_to_tarif_zone,
+                               mvv_ticket_name=mvv_ticket_name)
 
         return mvv_data
 
-### TESTING
-
-lat1 = 48.1663834
-lon1 = 11.5748712
-
-lat2 = 48.1377949
-lon2 = 11.5630753
-
-loc1 = Location(lat=lat1, lon=lon1)
-loc2 = Location(lat=lat2, lon=lon2)
 
 
-mvv_controller = MvvController()
-response = mvv_controller.get_response(loc1, loc2)
-mvv_data = mvv_controller.get_mvv_segment_data(response)

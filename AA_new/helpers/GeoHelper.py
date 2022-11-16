@@ -8,21 +8,28 @@ from AA_new.entities_new.location.Location import Location
 
 class GeoHelper:
 
-    def get_distance(self, start_coords, end_coords):
+    def get_distance(self, start_location: Location, end_location: Location):
+
+        start_coords = (start_location.lat, start_location.lon)
+        end_coords = (end_location.lat, end_location.lon)
+
         return int(geopy.distance.distance(start_coords, end_coords).m)
 
-
     def calculate_total_distance_from_location_list(self, list_location: List[Location]):
-
         length = len(list_location)
 
-        array1 = list_location[0:length-1]
+        array1 = list_location[0:length - 1]
         array2 = list_location[1:length]
 
+        df_1 = pd.DataFrame(array1)
+        df_1 = df_1.rename(columns={'lat': 'lat_1', 'lon': 'lon_1'})
 
-        df_1= pd.DataFrame(array1, columns=['array1'])
-        df_1['array2'] = pd.DataFrame(array2)
-        df_1['distance'] = df_1.apply(lambda x: get_distance((x.array1.lat, x.array1.lon), (x.array2.lat, x.array2.lon)), axis=1)
+        df_2 = pd.DataFrame(array2)
+        df_2 = df_2.rename(columns={'lat': 'lat_2', 'lon': 'lon_2'})
+        df = pd.concat([df_1, df_2], axis=1)
 
-        distance = df_1['distance'].sum()
+        df['distance'] = df.apply(
+            lambda x: self.get_distance(Location(x.lat_1, x.lon_1), Location(x.lat_2, x.lon_2)), axis=1)
+
+        distance = df['distance'].sum()
         return float(distance)

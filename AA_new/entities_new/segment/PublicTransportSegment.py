@@ -1,10 +1,11 @@
 from dataclasses import dataclass
+from typing import List
 
 from AA_new.entities_new.costs.Costs import Costs
 from AA_new.entities_new.location.Location import Location
-from AA_new.enums.mode.IndividualMode import PublicTransportMode
+from AA_new.entities_new.segment.Segment import Segment
+from AA_new.enums.mode.PublicTransportMode import PublicTransportMode
 from AA_new.enums.tarif_zone.TarifZone import TarifZone
-from Segment import Segment
 
 
 @dataclass

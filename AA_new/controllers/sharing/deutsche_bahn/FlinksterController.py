@@ -2,8 +2,8 @@ import time
 
 import requests
 
+from AA_new.controllers.sharing.deutsche_bahn.DeutscheBahnHelper import DeutscheBahnHelper
 from AA_new.entities_new.location.Location import Location
-from DeutscheBahnHelper import DeutscheBahnHelper
 from config.api_keys import dbkey
 
 
@@ -55,13 +55,4 @@ class FlinksterController:
 
         return closest_vehicle_position
 
-## TESTING
-
-# Ansprengerstr. 22
-lat1 = 48.1663834
-lon1 = 11.5748712
-
-loc1 = Location(lat=lat1, lon=lon1)
-
-controller = FlinksterController()
-print(controller.get_closest_vehicle(loc1))
+#

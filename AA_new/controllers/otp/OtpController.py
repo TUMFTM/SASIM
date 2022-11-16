@@ -7,11 +7,9 @@ import pandas as pd
 import polyline
 import requests
 
+from AA_new.controllers.otp.OtpHelper import OtpHelper
 from AA_new.entities_new.location.Location import Location
-from AA_new.enums.mode.IndividualMode import IndividualMode
-from AA_new.enums.mode.PublicTransportMode import PublicTransportMode
-from AA_new.enums.mode.SharingMode import SharingMode
-from OtpHelper import OtpHelper
+from AA_new.enums.mode.Mode import Mode
 
 
 class OtpController:
@@ -77,11 +75,12 @@ class OtpController:
             print('OTP KeyError duration')
             return 0
 
-        return duration
+        return duration / 60
 
 
-    def otp_request(self, input_startloc, input_endloc, mode: IndividualMode or PublicTransportMode or SharingMode,
+    def otp_request(self, input_startloc, input_endloc, mode: Mode,
                      input_time=None, input_waxWalkDistance='500'):
+
         mode = self.otp_helper.mode_to_otp_mode(mode).value
         input_startloc = self.otp_helper.location_to_otp_format(input_startloc)
         input_endloc = self.otp_helper.location_to_otp_format(input_endloc)
@@ -112,21 +111,3 @@ class OtpController:
 
         return resp
 
-# ### TESTING
-# otp_controller = OtpController()
-#
-# lat1 = 48.1663834
-# lon1 = 11.5748712
-#
-# lat2 = 48.1377949
-# lon2 = 11.5630753
-#
-# loc1 = Location(lat=lat1, lon=lon1)
-# loc2 = Location(lat=lat2, lon=lon2)
-#
-# response = otp_controller.otp_request(input_startloc=loc1, input_endloc=loc2, mode = IndividualMode.CAR)
-# waypoints = otp_controller.get_waypoints(response)
-# duration = otp_controller.get_duration(response)
-# distance = otp_controller.get_distance(response)
-#
-# print(waypoints, duration, distance)

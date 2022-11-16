@@ -26,19 +26,21 @@ class TierController:
         try:
             data = resp.get('data')
             number = resp.get('meta').get('rowCount')
-            point_min = (data[0].get('lat'), data[0].get('lng'))
-            dist_min = self.geo_helper.get_distance((start_location.lat, start_location.lon), point_min)
+            point_min = Location(lat=data[0].get('lat'), lon =data[0].get('lng'))
+            dist_min = self.geo_helper.get_distance(start_location=start_location, end_location=point_min)
             for i in range(0, number):
-                point = (data[i].get('lat'), data[i].get('lng'))
-                dist = self.geo_helper.get_distance((start_location.lat, start_location.lon), point)
+
+                point = Location(lat=data[i].get('lat'), lon= data[i].get('lng'))
+                dist = self.geo_helper.get_distance(start_location=start_location, end_location=point)
                 if dist < dist_min:
                     dist_min = dist
                     point_min = point
         except AttributeError:
-            point_min = 0
+            point_min = None
             print('Tier API AttributeError')
 
-        closest_vehicle = Location(lat=point_min[0], lon=point_min[1])
+
+        closest_vehicle = point_min
 
         end = time.time()
         print("tier api: " + str(end - start))

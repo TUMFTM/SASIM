@@ -1,8 +1,11 @@
-from enum import Enum, auto
+from AA_new.enums.mode.Mode import Mode
 
-class SharingMode(Enum):
-    CAB = auto()
-    TIER = auto()
-    EMMY = auto()
-    FLINKSTER = auto()
-    SHARENOW = auto()
+
+class SharingMode(Mode):
+    CAB = 'CAB'
+    TIER = 'TIER'
+    EMMY = 'EMMY'
+    FLINKSTER = 'FLINKSTER'
+    SHARENOW = 'SHARENOW'
+
+    ESCOOTER_SHARING = 'ESCOOTER_SHARING'

@@ -1,7 +1,10 @@
-from enum import Enum, auto
+from AA_new.enums.mode.Mode import Mode
 
-class PublicTransportMode(Enum):
-    METRO = auto()
-    REGIONAL_TRAIN = auto()
-    TRAM = auto()
-    BUS = auto()
+
+class PublicTransportMode(Mode):
+    METRO = 'METRO'
+    REGIONAL_TRAIN = 'REGIONAL_TRAIN'
+    TRAM = 'TRAM'
+    BUS = 'BUS'
+
+    PT = 'PT'

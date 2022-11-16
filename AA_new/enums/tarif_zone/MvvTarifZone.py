@@ -1,7 +1,6 @@
-from enum import Enum
+from AA_new.enums.tarif_zone.TarifZone import TarifZone
 
-
-class MvvTarifZone(Enum):
+class MvvTarifZone(TarifZone):
     ZONE_M = 'm'
     ZONE_1 = '1'
     ZONE_2 = '2'
@@ -9,4 +8,3 @@ class MvvTarifZone(Enum):
     ZONE_4 = '4'
     ZONE_5 = '5'
     ZONE_6 = '6'
-    WALK = 'walk'

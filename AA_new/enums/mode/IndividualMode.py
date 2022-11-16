@@ -1,10 +1,11 @@
-from enum import Enum, auto
+from AA_new.enums.mode.Mode import Mode
 
-class IndividualMode(Enum):
-    WALK = auto()
-    BICYCLE = auto()
-    EBICYCLE = auto()
-    MOPED = auto()
-    EMOPED = auto()
-    CAR = auto()
-    ECAR = auto()
+
+class IndividualMode(Mode):
+    WALK = 'WALK'
+    BICYCLE = 'BICYCLE'
+    EBICYCLE = 'EBICYCLE'
+    MOPED = 'MOPED'
+    EMOPED = 'EMOPED'
+    CAR = 'CAR_GASOLINE'
+    ECAR = 'CAR_BEV'

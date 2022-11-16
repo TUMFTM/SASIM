@@ -16,7 +16,7 @@ class MvvSegmentType(Enum):
     WALK_AWAY = auto()
     TRANSPORTATION = auto()
 @dataclass
-class MvvSegment:
+class MvvSegmentData:
     waypoints: List[Location]
     duration: float
     distance: float
@@ -28,10 +28,11 @@ class MvvSegment:
     mode: PublicTransportMode or IndividualMode
 
 @dataclass
-class MvvData:
-    mvv_trip: List[MvvSegment]
+class MvvTripData:
+    mvv_trip: List[MvvSegmentData]
     from_tarf_zone: MvvTarifZone
     to_tarif_zone: MvvTarifZone
+    mvv_ticket_name: str
 
 
 class MvvHelper:
@@ -47,7 +48,7 @@ class MvvHelper:
             mode = PublicTransportMode.BUS
 
         elif (connectionPartType == 'SBAHN' or connectionPartType == 'BAHN'):
-            mode =PublicTransportMode.REGIONAL_TRAIN
+            mode = PublicTransportMode.REGIONAL_TRAIN
 
         elif (connectionPartType == 'FOOTWAY'):
             mode = IndividualMode.WALK

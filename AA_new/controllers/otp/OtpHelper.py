@@ -10,10 +10,15 @@ class OtpHelper:
 
     def mode_to_otp_mode(self, mode: IndividualMode or PublicTransportMode or SharingMode):
 
-        if(mode == IndividualMode.CAR or mode == IndividualMode.ECAR or mode == IndividualMode.MOPED or mode == IndividualMode.EMOPED or mode == SharingMode.EMMY or mode == SharingMode.FLINKSTER or mode == SharingMode.SHARENOW):
+        if(
+                mode == IndividualMode.CAR or mode == IndividualMode.ECAR or mode == IndividualMode.MOPED or
+                mode == IndividualMode.EMOPED or mode == SharingMode.EMMY or mode == SharingMode.FLINKSTER or
+                mode == SharingMode.SHARENOW
+        ):
             otp_mode = OtpMode.CAR
 
-        elif(mode == IndividualMode.BICYCLE or mode == IndividualMode.EBICYCLE or mode == SharingMode.CAB or mode == SharingMode.TIER):
+        elif(mode == IndividualMode.BICYCLE or mode == IndividualMode.EBICYCLE or
+             mode == SharingMode.CAB or mode == SharingMode.TIER):
             otp_mode = OtpMode.BICYCLE
 
         elif(mode == IndividualMode.WALK):
@@ -33,7 +38,3 @@ class OtpMode(Enum):
     WALK = 'WALK'
     CAR = 'CAR'
     BICYCLE = 'BICYCLE'
-
-## TESTING
-otp_helper = OtpHelper()
-print(otp_helper.mode_to_otp_mode(IndividualMode.ECAR).value)
