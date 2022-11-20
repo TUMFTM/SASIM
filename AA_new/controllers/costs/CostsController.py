@@ -18,10 +18,20 @@ class CostsController:
         self._df_db_internal_costs, self._df_db_internal_costs_mvv, self._df_db_external_costs = self._initialise_db()
 
 
-    def get_external_costs(self, distance: float, mode: Mode) -> ExternalCosts:
+    def get_external_costs(self, distance: float, mode: Mode) -> ExternalCosts or None:
 
         if (type(mode) == SharingMode):
-            mode = SharingMode.ESCOOTER_SHARING
+            if(mode == SharingMode.TIER):
+                mode = SharingMode.ESCOOTER_SHARING
+            elif(mode == SharingMode.EMMY):
+                mode = SharingMode.MOPED_SHARING
+            elif(mode == SharingMode.CAB):
+                mode = SharingMode.BICYCLE_SHARING
+            elif(mode == SharingMode.SHARENOW or mode == SharingMode.FLINKSTER):
+                mode = SharingMode.CAR_SHARING
+            else:
+                print("ERROR: sharing mode cannot be converted to simplified sharing mode ")
+                return None
 
         distance = distance/1000
 

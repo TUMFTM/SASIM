@@ -1,70 +1,57 @@
-from AA_new.enums.mode.IndividualMode import IndividualMode
-from AA_new.enums.mode.PublicTransportMode import PublicTransportMode
-from AA_new.enums.mode.SharingMode import SharingMode
-from AA_new.enums.trip_type.TripType import TripType
+from AA_new.enums.mode.TripMode import TripMode
 
 
 class ApiHelper:
 
-    def get_mode_from_input(self, mode: str):
+    def get_trip_mode_from_input(self, trip_mode: str):
 
-        if(mode == 'WALK'):
-            return IndividualMode.WALK
+        if (trip_mode == 'WALK'):
+            return TripMode.WALK
 
-        elif(mode == 'BICYCLE'):
-            return IndividualMode.BICYCLE
+        elif (trip_mode == 'BICYCLE'):
+            return TripMode.BICYCLE
 
-        elif (mode == 'EBICYCLE'):
-            return IndividualMode.EBICYCLE
+        elif (trip_mode == 'EBICYCLE'):
 
-        elif (mode == 'MOPED'):
-            return IndividualMode.MOPED
+            return TripMode.EBICYCLE
 
-        elif (mode == 'EMOPED'):
-            return IndividualMode.EMOPED
+        elif (trip_mode == 'MOPED'):
+            return TripMode.MOPED
 
-        elif (mode == 'CAR'):
-            return IndividualMode.CAR
+        elif (trip_mode == 'EMOPED'):
+            return TripMode.EMOPED
 
-        elif (mode == 'ECAR'):
-            return IndividualMode.ECAR
+        elif (trip_mode == 'CAR'):
+            return TripMode.CAR
 
-        elif (mode == 'CAB'):
-            return SharingMode.CAB
+        elif (trip_mode == 'ECAR'):
+            return TripMode.ECAR
 
-        elif (mode == 'TIER'):
-            return SharingMode.TIER
 
-        elif (mode == 'EMMY'):
-            return SharingMode.EMMY
+        elif (trip_mode == 'SHARENOW'):
+            return TripMode.SHARENOW
 
-        elif (mode == 'FLINKSTER'):
-            return SharingMode.FLINKSTER
+        elif (trip_mode == 'FLINKSTER'):
+            return TripMode.FLINKSTER
 
-        elif (mode == 'SHARENOW'):
-            return SharingMode.SHARENOW
+        elif (trip_mode == 'CAB'):
+            return TripMode.CAB
 
-        elif(mode == 'PT'):
-            return PublicTransportMode.PT
+        elif (trip_mode == 'EMMY'):
+            return TripMode.EMMY
+
+        elif (trip_mode == 'TIER'):
+            return TripMode.TIER
+
+
+        elif (trip_mode == 'PT'):
+            return TripMode.PT
+
+        elif (trip_mode == 'INTERMODAL_PT_BIKE'):
+            return TripMode.INTERMODAL_PT_BIKE
+
+
 
         else:
             print("ERROR: mode input cannot be converted to variable type 'Mode'")
-            return None
-
-    def get_trip_type_from_input(self, trip_type: str):
-
-        if (trip_type == 'TYPE_1'):
-            return TripType.TYPE_1
-
-        elif (trip_type == 'TYPE_2'):
-            return TripType.TYPE_2
-
-        elif (trip_type == 'TYPE_3'):
-            return TripType.TYPE_3
-
-        elif (trip_type == 'TYPE_4'):
-            return TripType.TYPE_4
-
-        else:
-            print("ERROR: mode input cannot be converted to variable type 'TripType'")
             return None

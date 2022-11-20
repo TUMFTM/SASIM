@@ -55,4 +55,12 @@ class FlinksterController:
 
         return closest_vehicle_position
 
+# ## TESTING
 #
+# # Ansprengerstr. 22
+# lat1 = 48.1663834
+# lon1 = 11.5748712
+# loc1 = Location(lat=lat1, lon=lon1)
+#
+# controller = FlinksterController()
+# controller.get_closest_vehicle(loc1)

@@ -18,6 +18,7 @@ from AA_new.entities_new.trip.Trip import Trip
 from AA_new.enums.mode.IndividualMode import IndividualMode
 from AA_new.enums.mode.Mode import Mode
 from AA_new.enums.mode.SharingMode import SharingMode
+from AA_new.enums.mode.TripMode import TripMode
 from AA_new.enums.trip_type.TripType import TripType
 from AA_new.helpers.GeoHelper import GeoHelper
 
@@ -39,22 +40,31 @@ class TripController:
 
         self._geo_helper = GeoHelper()
 
-    def get_trip(self, start_location: Location, end_location: Location, trip_type: TripType, mode: Mode = None) -> Trip:
+    def get_trip(self, start_location: Location, end_location: Location, trip_mode: TripMode) -> Trip:
+
+        trip_type = self._get_trip_type_from_trip_mode(trip_mode=trip_mode)
 
         if (trip_type == TripType.TYPE_1):
 
-            trip = self._get_trip_type_1(start_location=start_location, end_location=end_location, mode=mode)
+            mode = self._get_mode_from_trip_mode(trip_mode=trip_mode)
+
+            trip = self._get_trip_type_1(start_location=start_location, end_location=end_location, mode=mode,
+                                         trip_mode=trip_mode)
 
         elif (trip_type == TripType.TYPE_2):
-            trip = self._get_trip_type_2(start_location=start_location, end_location=end_location, sharing_mode=mode)
+
+            mode = self._get_mode_from_trip_mode(trip_mode=trip_mode)
+
+            trip = self._get_trip_type_2(start_location=start_location, end_location=end_location, sharing_mode=mode,
+                                         trip_mode=trip_mode)
 
         elif (trip_type == TripType.TYPE_3):
             trip = self._get_trip_type_3_4(start_location=start_location, end_location=end_location,
-                                           trip_type=TripType.TYPE_3)
+                                           trip_type=TripType.TYPE_3, trip_mode=trip_mode)
 
         elif (trip_type == TripType.TYPE_4):
             trip = self._get_trip_type_3_4(start_location=start_location, end_location=end_location,
-                                           trip_type=TripType.TYPE_4)
+                                           trip_type=TripType.TYPE_4, trip_mode=trip_mode)
 
         else:
             print("Error: trip type now valid")
@@ -62,7 +72,8 @@ class TripController:
 
         return trip
 
-    def _get_trip_type_1(self, start_location: Location, end_location: Location, mode: IndividualMode):
+    def _get_trip_type_1(self, start_location: Location, end_location: Location, mode: IndividualMode,
+                         trip_mode: TripMode):
 
         otp_response = self._otp_controller.otp_request(
             input_startloc=start_location,
@@ -107,7 +118,7 @@ class TripController:
         trip = Trip(
             start_location=start_location,
             end_location=end_location,
-            trip_type=TripType.TYPE_1,
+            trip_mode=trip_mode,
             segments=[segment],
             duration=segment.duration,
             distance=segment.distance,
@@ -117,15 +128,16 @@ class TripController:
 
         return trip
 
-    def _get_trip_type_2(self, start_location: Location, end_location: Location, sharing_mode: SharingMode):
+    def _get_trip_type_2(self, start_location: Location, end_location: Location, sharing_mode: SharingMode,
+                         trip_mode: TripMode):
 
         # 1. get sharing position
         location_closest_vehicle = self._get_sharing_position(start_location=start_location, sharing_mode=sharing_mode)
 
         # 2. get walk waypoints, distance, duration, costs
         otp_response_walk = self._otp_controller.otp_request(
-            input_startloc=location_closest_vehicle,
-            input_endloc=start_location,
+            input_startloc=start_location,
+            input_endloc=location_closest_vehicle,
             mode=IndividualMode.WALK
         )
 
@@ -151,7 +163,7 @@ class TripController:
 
         # 3. get ride waypoints, distance, duration, costs
         otp_response_ride = self._otp_controller.otp_request(
-            input_startloc=start_location,
+            input_startloc=location_closest_vehicle,
             input_endloc=end_location,
             mode=sharing_mode
         )
@@ -190,7 +202,7 @@ class TripController:
         trip = Trip(
             start_location=start_location,
             end_location=end_location,
-            trip_type=TripType.TYPE_2,
+            trip_mode=trip_mode,
             segments=[segment_walk, segment_ride],
             duration=duration_walk + duration_ride,
             distance=distance_walk + distance_ride,
@@ -200,7 +212,8 @@ class TripController:
 
         return trip
 
-    def _get_trip_type_3_4(self, start_location: Location, end_location: Location, trip_type: TripType):
+    def _get_trip_type_3_4(self, start_location: Location, end_location: Location, trip_type: TripType,
+                           trip_mode: TripMode):
 
         mvv_response = self._mvv_controller.get_response(start_location=start_location, end_location=end_location)
         mvv_trip_data = self._mvv_controller.get_mvv_trip_data(mvv_response)
@@ -217,7 +230,8 @@ class TripController:
 
                 end_location_bike = mvv_trip_data.mvv_trip[0].waypoints[-1]
                 otp_response = self._otp_controller.otp_request(input_startloc=start_location,
-                                                                input_endloc=end_location_bike, mode=IndividualMode.BICYCLE)
+                                                                input_endloc=end_location_bike,
+                                                                mode=IndividualMode.BICYCLE)
 
                 mode = IndividualMode.WALK
                 duration = self._otp_controller.get_duration(otp_response)
@@ -284,7 +298,7 @@ class TripController:
         trip = Trip(
             start_location=start_location,
             end_location=end_location,
-            trip_type=TripType.TYPE_3,
+            trip_mode=trip_mode,
             segments=segments,
             duration=total_duration,
             distance=total_distance,
@@ -317,6 +331,57 @@ class TripController:
 
         return closest_vehicle
 
+    def _get_trip_type_from_trip_mode(self, trip_mode: TripMode) -> TripType or None:
+
+        if (
+                trip_mode == TripMode.CAR or
+                trip_mode == TripMode.ECAR or
+                trip_mode == TripMode.MOPED or
+                trip_mode == TripMode.EMOPED or
+                trip_mode == TripMode.BICYCLE or
+                trip_mode == TripMode.EBICYCLE or
+                trip_mode == TripMode.WALK
+        ):
+            return TripType.TYPE_1
+
+        elif (
+                trip_mode == TripMode.CAB or
+                trip_mode == TripMode.FLINKSTER or
+                trip_mode == TripMode.SHARENOW or
+                trip_mode == TripMode.TIER or
+                trip_mode == TripMode.EMMY
+        ):
+            return TripType.TYPE_2
+
+        elif (trip_mode == TripMode.PT):
+            return TripType.TYPE_3
+        elif (trip_mode == TripMode.INTERMODAL_PT_BIKE):
+            return TripType.TYPE_4
+        else:
+            print("ERROR: trip mode not valid for conversion into trip type")
+            return None
+
+    def _get_mode_from_trip_mode(self, trip_mode: TripMode) -> Mode or None:
+        if (trip_mode == TripMode.CAR):
+            return IndividualMode.CAR
+        elif (trip_mode == TripMode.ECAR):
+            return IndividualMode.ECAR
+        if (trip_mode == TripMode.MOPED): return IndividualMode.MOPED
+        if (trip_mode == TripMode.EMOPED): return IndividualMode.EMOPED
+        if (trip_mode == TripMode.BICYCLE): return IndividualMode.BICYCLE
+        if (trip_mode == TripMode.EBICYCLE): return IndividualMode.EBICYCLE
+        if (trip_mode == TripMode.WALK): return IndividualMode.WALK
+
+        if (trip_mode == TripMode.CAB): return SharingMode.CAB
+        if (trip_mode == TripMode.FLINKSTER): return SharingMode.FLINKSTER
+        if (trip_mode == TripMode.SHARENOW): return SharingMode.SHARENOW
+        if (trip_mode == TripMode.TIER): return SharingMode.TIER
+        if (trip_mode == TripMode.EMMY):
+            return SharingMode.EMMY
+
+        else:
+            print("ERROR: trip mode not valid for conversion into mode")
+            return None
 
 # ## TESTING
 # # Ansprengerstr. 22
@@ -337,5 +402,3 @@ class TripController:
 # print("distance: " + str(trip.distance))
 # print("internal: " + str(trip.costs.internal_costs.internal_costs))
 # print("external: " + str(trip.costs.external_costs.external_costs))
-
-
