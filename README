@@ -1,53 +1,53 @@
-This is the project for the backend of VMRP (fullcost-based multimodal route planner).
-In order to use tha backend you have to do following steps first:
-- download python
-- import all python packages
-- set up a local otp (open trip planner) instance
-- change values of the needed Tier and DB API keys to own keys
-- IMPORTANT: if you want to run the project, change constant ROOT_DIR in config/definitions to variant 2
-by commenting VARIANT 1 and uncommenting VARIANT 2. VARIANT 1 is needed if you want to build an .exe file
 
-This backend-server is using the flask library to run a local server and can be reached by sending a http/get request to
-the REST-API. To run the backend-server run the script rest_api_2.py or find the project folder "VMRP_Prototyp" and
-double-click on "VMRP_backend.bat".
+### a fullcost based multimodal route planner
 
-For the calculation of full-costs the backend is using 3 simple csv files located in the "costs_db" directory of this
-project. If values need to be changed, simply change them in the csv files and save them.
+The VMRP Web App is a routeplanner for the city of Munich, that enables to plan and compare routes with many different modes (private, sharing and public transport). It is part of the research project SASIM of M-Cube (Munich Cluster for the Future of Mobility in Metropolitan Regions). The goal of this project is, to give users a better understanding of the external effects of their mobility behaviour.
 
-Following routes can be planned in Munich with this software:
-- private vehicles:
-    private car, e-car, moped, e-moped, bicycle, e-bicycle
-- walking
-- sharing vehicles:
-    Emmy (e-moped sharing)
-    Tier (only! e-scooter sharing)
-    Call a Bike (bike sharing)
-    ShareNow (car sharing)
-    Flinkster (car sharing)
-- public transit (MVV Area)
+## Features:
+- plan multiple routes for a start- and destination address and a mobility mode
+- compare different routes in a result list 
+- MobiScore: the MobiScore is a score developed by M-Cube, to evaluate the sustainability of a mobility choice for a particular route. The MobiScore calculation is based on the distance and the external costs of a route.
+- compare costs, distance and travel time in a bar chart
+- (coming soon ...) get further information on the external costs of a particular route 
 
-APIs used:
--> The locations of sharing vehicles are requested through API-requests with scripts in the directory
-"mobility_controllers/mobility_api/sharing".
--> Routes with public transit are planned with MVG API ("mobility_controllers/mobility_api/public_transport")
--> for all other routes (private vehicles, sharing, walking) OTP is used for route planning
--> for geocoding, a Nominatim geocoder is used ("engines/geocoder")
+## Use of Web-App:
+The VMRP Web-App is already deployed and can be accessed at sasim.mcube-cluster.de. It is to note, that the current version 0.2 is a beta-version, and bugs can occur.
 
-General creation of routes:
-currently in order to create a route following steps are necessary
-- for private vehicles:
-    i. create a vehicle object of either ot the classes that implement the abstract class Vehicle
-    (IndividualVehicle, SharingVehicle or UrbanPublicVehicle) with all necessary parameters
-    ii. create a trip object of the class SimpleOtpTrip with all necessary parametes
-(IndividualVehicle, SharingVehicle or UrbanPublicVehicle) with all necessary parameters
-- for sharing or public transit:
-    i. create a trip object of either of the three classes left that implement the abstract class Trip
-    (SharingTrip, PublicTransportTrip, IntermodalTrip)
+## Get started for Developers:
+For developers, it is important, that after cloning the project additionally add the file api_keys.py to the config folder. Then add your TIER and DB Api keys in the following format:
 
-in both cases, you can now use get-methods to get all calculated data like costs, segments, duration, distance of the trip
-and these informations are also available via get-methods for each segment of the trip (e.g. trip_emmy.get_segmets().get_costs())
+```python
+dbkey = 'Own DB API-Key'
+tierkey = 'Own TIER API-Key'
+```
 
+IMPORTANT: if you want to run the project, change constant ROOT_DIR in config/definitions to variant 2 by commenting VARIANT 1 and uncommenting VARIANT 2. VARIANT 1 is needed if you want to build an .exe file
 
+Before the backend can be used, it is necessary to run a local instance of OTP2 (Open Trip Planner) on the local device of the developer (find tutorial here --> https://docs.opentripplanner.org/en/latest/Basic-Tutorial/)
 
+The application server can be then deployed locally (--> run app.py). The Backend REST-Api can be accessed at localhost:5000/plattform/ with the following params:
+- inputStartAddress:
+a Munich address as type string in format "<Streetname> <#>, München"
+- inputEndAddress: 
+a Munich address as type string in format "<Streetname> <#>, München"
+- tripMode: a valid tripMode 
+following tripModes can be used:
+- "CAR" : trip with a private gasoline car
+- "ECAR" : trip with a private electric car
+- "MOPED" : trip with a private moped
+- "EMOPED" : trip with a private electric moped
+- "BICYCLE" : trip with a private bicycle
+- "EBICYCLE" : trip with a private electric bicycle
+- "EMMY: trip using the closest Emmy sharing electric moped and walking to the vehicle
+- "TIER" : trip using the closest TIER sharing e-scooter and walking to the vehicle
+- "CAB": trip using the closest Call a Bike sharing bicycle and walking to the vehicle
+- "FLINKSTER": trip using the closest Flinkster sharing car and walking to the vehicle
+- "SHARENOW" : trip using the closest Sharenow sharing car and walking to the vehicle
+- "PT" : trip using public transport and walking to the first station
+- "INTERMODAL_PT_BIKE" : trip using public transport and using the bicycle to get to the first station
 
+## Support:
+contact g.ottrubay@gmail.com for support
 
+## Licence:
+MIT Public Licence
