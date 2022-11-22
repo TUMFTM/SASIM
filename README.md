@@ -14,24 +14,32 @@ The VMRP Web App is a routeplanner for the city of Munich, that enables to plan 
 The VMRP Web-App is already deployed and can be accessed at sasim.mcube-cluster.de. It is to note, that the current version 0.2 is a beta-version, and bugs can occur.
 
 ## Get started for Developers:
-For developers, it is important, that after cloning the project additionally add the file api_keys.py to the config folder. Then add your TIER and DB Api keys in the following format:
+
+### Run Project
+Before the project can be run, make sure following steps are done:
+1. clone project to your local repository
+2. add your own file api_keys.py to the config folder. Then add your TIER and DB Api keys in the following format:
 
 ```
 dbkey = 'Own DB API-Key'
 tierkey = 'Own TIER API-Key'
 ```
 
-IMPORTANT: if you want to run the project, change constant ROOT_DIR in config/definitions to variant 2 by commenting VARIANT 1 and uncommenting VARIANT 2. VARIANT 1 is needed if you want to build an .exe file
+3. change constant ROOT_DIR in config/definitions to variant 2 by commenting VARIANT 1 and uncommenting VARIANT 2. VARIANT 1 is needed if you want to build an .exe file
 
-Before the backend can be used, it is necessary to run a local instance of OTP2 (Open Trip Planner) on the local device of the developer (find tutorial here --> https://docs.opentripplanner.org/en/latest/Basic-Tutorial/)
+3. run a local instance of OTP2 (Open Trip Planner) on the local device of the developer (find tutorial here --> https://docs.opentripplanner.org/en/latest/Basic-Tutorial/)
 
-The application server can be then deployed locally (--> run app.py). The Backend REST-Api can be accessed at localhost:5000/plattform/ with the following params:
+4. The application server can be then deployed locally (--> run app.py). 
+
+### REST-API
+The Backend REST-Api can be accessed at localhost:5000/plattform/ with the following params:
 - inputStartAddress:
 a Munich address as type string in format "<Streetname> <#>, München"
 - inputEndAddress: 
 a Munich address as type string in format "<Streetname> <#>, München"
 - tripMode: a valid tripMode 
-following tripModes can be used:
+
+following modes can be used as the param tripMode:
 - "CAR" : trip with a private gasoline car
 - "ECAR" : trip with a private electric car
 - "MOPED" : trip with a private moped
@@ -45,6 +53,25 @@ following tripModes can be used:
 - "SHARENOW" : trip using the closest Sharenow sharing car and walking to the vehicle
 - "PT" : trip using public transport and walking to the first station
 - "INTERMODAL_PT_BIKE" : trip using public transport and using the bicycle to get to the first station
+
+For accessing the Web-App Frontend, use localhost:5000/web/ (ideally in chrome web browser)
+
+### Structure of Backend
+The backend uses a MVC Architecture. The Model is specified in the directories model/entities and model/enums. Furthermode multiple controller classes are used for the core functionalities, which are called by the TripController class, to create a new trip. To plan a new route create an object of the class TripController and execute the method get_trip() with the input variables start_location and end_location of the internal class Location, and trip_mode of the internal class TripMode.
+
+an example for creating a trip:
+```python
+trip_controller = TripController()
+
+start_location = Location(lat=48.1663834, lon=11.5748712)
+end_location = Location(lat=48.1377949, lon=48.1377949)
+trip_mode = TripMode.BICYCLE
+
+trip = trip_controller.get_trip(start_location, end_location, trip_mode)
+```
+
+#### pseudo database
+All munich and mode specific variables from research are stored in the directory db.
 
 ## Support:
 contact g.ottrubay@gmail.com for support
