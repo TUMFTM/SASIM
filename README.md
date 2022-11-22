@@ -34,7 +34,7 @@ tierkey = '[Own TIER API-Key]'
 ### REST-API
 The Backend REST-Api can be accessed at localhost:5000/plattform/ with the following params:
 - inputStartAddress:
-a Munich address as type string in format "[Streetname>] [#], München"
+a Munich address as type string in format "[Streetname] [#], München"
 - inputEndAddress: 
 a Munich address as type string in format "[Streetname] [#], München"
 - tripMode: a valid tripMode 
