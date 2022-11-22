@@ -10,7 +10,7 @@ The VMRP Web App is a routeplanner for the city of Munich, that enables to plan 
 - compare costs, distance and travel time in a bar chart
 - (coming soon ...) get further information on the external costs of a particular route 
 
-## Use of Web-App:
+## Use of Web-App (coming soon ...):
 The VMRP Web-App is already deployed and can be accessed at sasim.mcube-cluster.de. It is to note, that the current version 0.2 is a beta-version, and bugs can occur.
 
 ## Get started for Developers:
@@ -21,8 +21,8 @@ Before the project can be run, make sure following steps are done:
 2. add your own file api_keys.py to the config folder. Then add your TIER and DB Api keys in the following format:
 
 ```
-dbkey = 'Own DB API-Key'
-tierkey = 'Own TIER API-Key'
+dbkey = '[Own DB API-Key]'
+tierkey = '[Own TIER API-Key]'
 ```
 
 3. change constant ROOT_DIR in config/definitions to variant 2 by commenting VARIANT 1 and uncommenting VARIANT 2. VARIANT 1 is needed if you want to build an .exe file
@@ -34,9 +34,9 @@ tierkey = 'Own TIER API-Key'
 ### REST-API
 The Backend REST-Api can be accessed at localhost:5000/plattform/ with the following params:
 - inputStartAddress:
-a Munich address as type string in format "<Streetname> <#>, München"
+a Munich address as type string in format "[Streetname>] [#], München"
 - inputEndAddress: 
-a Munich address as type string in format "<Streetname> <#>, München"
+a Munich address as type string in format "[Streetname] [#], München"
 - tripMode: a valid tripMode 
 
 following modes can be used as the param tripMode:
