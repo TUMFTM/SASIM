@@ -1,4 +1,4 @@
-from AA_new.enums.mode.Mode import Mode
+from AA_new.model.enums.mode.Mode import Mode
 
 
 class IndividualMode(Mode):

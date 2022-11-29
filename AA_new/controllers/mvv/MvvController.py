@@ -9,10 +9,10 @@ from AA_new.controllers.mvv.MvvHelper import MvvHelper
 from AA_new.controllers.mvv.MvvHelper import MvvSegmentData
 from AA_new.controllers.mvv.MvvHelper import MvvSegmentType
 from AA_new.controllers.mvv.MvvHelper import MvvTripData
-from AA_new.entities_new.location.Location import Location
-from AA_new.enums.mode.IndividualMode import IndividualMode
-from AA_new.enums.mode.PublicTransportMode import PublicTransportMode
-from AA_new.enums.tarif_zone.MvvTarifZone import MvvTarifZone
+from AA_new.model.entities.location.Location import Location
+from AA_new.model.enums.mode.IndividualMode import IndividualMode
+from AA_new.model.enums.mode.PublicTransportMode import PublicTransportMode
+from AA_new.model.enums.tarif_zone.MvvTarifZone import MvvTarifZone
 from AA_new.helpers.GeoHelper import GeoHelper
 
 

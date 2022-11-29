@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from AA_new.entities_new.costs.ExternalCosts import ExternalCosts
-from AA_new.entities_new.costs.InternalCosts import InternalCosts
+from AA_new.model.entities.costs.ExternalCosts import ExternalCosts
+from AA_new.model.entities.costs.InternalCosts import InternalCosts
 
 
 @dataclass

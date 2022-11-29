@@ -4,7 +4,7 @@ import time
 import requests
 
 from AA_new.controllers.sharing.deutsche_bahn.DeutscheBahnHelper import DeutscheBahnHelper
-from AA_new.entities_new.location.Location import Location
+from AA_new.model.entities.location.Location import Location
 from config.api_keys import dbkey
 
 

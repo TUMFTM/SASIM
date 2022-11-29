@@ -8,8 +8,8 @@ import polyline
 import requests
 
 from AA_new.controllers.otp.OtpHelper import OtpHelper
-from AA_new.entities_new.location.Location import Location
-from AA_new.enums.mode.Mode import Mode
+from AA_new.model.entities.location.Location import Location
+from AA_new.model.enums.mode.Mode import Mode
 
 
 class OtpController:

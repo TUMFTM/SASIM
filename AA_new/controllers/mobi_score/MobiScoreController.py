@@ -2,8 +2,8 @@ import os
 
 import pandas as pd
 
-from AA_new.entities_new.costs.ExternalCosts import ExternalCosts
-from AA_new.enums.mobi_score.MobiScore import MobiScore
+from AA_new.model.entities.costs.ExternalCosts import ExternalCosts
+from AA_new.model.enums.mobi_score.MobiScore import MobiScore
 from config.definitions import ROOT_DIR
 
 

@@ -1,4 +1,4 @@
-from AA_new.enums.tarif_zone.TarifZone import TarifZone
+from AA_new.model.enums.tarif_zone.TarifZone import TarifZone
 
 class MvvTarifZone(TarifZone):
     ZONE_M = 'm'

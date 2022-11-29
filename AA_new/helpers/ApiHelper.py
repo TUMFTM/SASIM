@@ -1,4 +1,4 @@
-from AA_new.enums.mode.TripMode import TripMode
+from AA_new.model.enums.mode.TripMode import TripMode
 
 
 class ApiHelper:

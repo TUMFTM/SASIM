@@ -1,9 +1,9 @@
 from enum import Enum
 
-from AA_new.entities_new.location.Location import Location
-from AA_new.enums.mode.IndividualMode import IndividualMode
-from AA_new.enums.mode.PublicTransportMode import PublicTransportMode
-from AA_new.enums.mode.SharingMode import SharingMode
+from AA_new.model.entities.location.Location import Location
+from AA_new.model.enums.mode.IndividualMode import IndividualMode
+from AA_new.model.enums.mode.PublicTransportMode import PublicTransportMode
+from AA_new.model.enums.mode.SharingMode import SharingMode
 
 
 class OtpHelper:

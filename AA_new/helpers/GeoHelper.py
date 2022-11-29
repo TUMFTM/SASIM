@@ -3,7 +3,7 @@ from typing import List
 import geopy.distance
 import pandas as pd
 
-from AA_new.entities_new.location.Location import Location
+from AA_new.model.entities.location.Location import Location
 
 
 class GeoHelper:

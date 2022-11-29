@@ -7,19 +7,19 @@ from AA_new.controllers.sharing.ShareNowController import ShareNowController
 from AA_new.controllers.sharing.TierController import TierController
 from AA_new.controllers.sharing.deutsche_bahn.CallABikeController import CallABikeController
 from AA_new.controllers.sharing.deutsche_bahn.FlinksterController import FlinksterController
-from AA_new.entities_new.costs.Costs import Costs
-from AA_new.entities_new.costs.ExternalCosts import ExternalCosts
-from AA_new.entities_new.costs.InternalCosts import InternalCosts
-from AA_new.entities_new.location.Location import Location
-from AA_new.entities_new.segment.IndividualSegment import IndividualSegment
-from AA_new.entities_new.segment.PublicTransportSegment import PublicTransportSegment
-from AA_new.entities_new.segment.SharingSegment import SharingSegment
-from AA_new.entities_new.trip.Trip import Trip
-from AA_new.enums.mode.IndividualMode import IndividualMode
-from AA_new.enums.mode.Mode import Mode
-from AA_new.enums.mode.SharingMode import SharingMode
-from AA_new.enums.mode.TripMode import TripMode
-from AA_new.enums.trip_type.TripType import TripType
+from AA_new.model.entities.costs.Costs import Costs
+from AA_new.model.entities.costs.ExternalCosts import ExternalCosts
+from AA_new.model.entities.costs.InternalCosts import InternalCosts
+from AA_new.model.entities.location.Location import Location
+from AA_new.model.entities.segment.IndividualSegment import IndividualSegment
+from AA_new.model.entities.segment.PublicTransportSegment import PublicTransportSegment
+from AA_new.model.entities.segment.SharingSegment import SharingSegment
+from AA_new.model.entities.trip.Trip import Trip
+from AA_new.model.enums.mode.IndividualMode import IndividualMode
+from AA_new.model.enums.mode.Mode import Mode
+from AA_new.model.enums.mode.SharingMode import SharingMode
+from AA_new.model.enums.mode.TripMode import TripMode
+from AA_new.model.enums.trip_type.TripType import TripType
 from AA_new.helpers.GeoHelper import GeoHelper
 
 

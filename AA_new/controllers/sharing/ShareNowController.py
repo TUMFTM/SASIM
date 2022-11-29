@@ -6,7 +6,7 @@ import uuid
 import numpy as np
 from paho.mqtt import client as mqtt
 
-from AA_new.entities_new.location.Location import Location
+from AA_new.model.entities.location.Location import Location
 from AA_new.helpers.GeoHelper import GeoHelper
 
 

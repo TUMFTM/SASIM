@@ -2,7 +2,7 @@ import time
 
 import requests
 
-from AA_new.entities_new.location.Location import Location
+from AA_new.model.entities.location.Location import Location
 from AA_new.helpers.GeoHelper import GeoHelper
 from config.api_keys import tierkey
 
