@@ -74,7 +74,7 @@ trip = trip_controller.get_trip(start_location, end_location, trip_mode)
 All munich and mode specific variables from research are stored in the directory db in csv files. If the values in current research or pricing plans of the mobility sharing services change, these csv. files must be updated.
 
 ## Support:
-contact g.ottrubay@gmail.com for support
+contact gusztav.ottrubay@tum.de for support
 
 ## Licence:
 MIT Public Licence
