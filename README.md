@@ -3,17 +3,17 @@
 
 The VMRP Web App is a routeplanner for the city of Munich, that enables to plan and compare routes with many different modes (private, sharing and public transport). It is part of the research project SASIM of M-Cube (Munich Cluster for the Future of Mobility in Metropolitan Regions). The goal of this project is, to give users a better understanding of the external effects of their mobility behaviour.
 
-## Features:
+## Features
 - plan multiple routes for a start- and destination address and a mobility mode
 - compare different routes in a result list 
 - MobiScore: the MobiScore is a score developed by M-Cube, to evaluate the sustainability of a mobility choice for a particular route. The MobiScore calculation is based on the distance and the external costs of a route.
 - compare costs, distance and travel time in a bar chart
 - (coming soon ...) get further information on the external costs of a particular route 
 
-## Use of Web-App (coming soon ...):
+## Use of Web-App (coming soon ...)
 The VMRP Web-App is already deployed and can be accessed at sasim.mcube-cluster.de. It is to note, that the current version 0.2 is a beta-version, and bugs can occur.
 
-## Get started for Developers:
+## Get started for Developers
 
 ### Run Project
 Before the project can be run, make sure following steps are done:
@@ -73,8 +73,8 @@ trip = trip_controller.get_trip(start_location, end_location, trip_mode)
 #### pseudo database
 All munich and mode specific variables from research are stored in the directory db in csv files. If the values in current research or pricing plans of the mobility sharing services change, these csv. files must be updated.
 
-## Support:
+## Support
 contact gusztav.ottrubay@tum.de for support
 
-## Licence:
+## Licence
 MIT Public Licence
