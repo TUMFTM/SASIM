@@ -22,24 +22,6 @@ class MvvController:
         self.mvv_helper = MvvHelper()
         self.geo_helper = GeoHelper()
 
-    def get_mvv_waypoints(self, response) -> List[List[Location]]:
-        pass
-
-    def get_mvv_modes(self) -> List[PublicTransportMode]:
-        pass
-
-    def get_from_tarif_zone(self) -> MvvTarifZone:
-        pass
-
-    def get_to_tarif_zone(self) -> MvvTarifZone:
-        pass
-
-    def get_durations(self) -> List[float]:
-        pass
-
-    def get_distances(self) -> List[float]:
-        pass
-
     def get_response(self, start_location: Location, end_location: Location, input_time: datetime = None) -> json:
         start = time.time()
         try:
