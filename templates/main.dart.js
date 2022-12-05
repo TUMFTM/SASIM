@@ -76474,7 +76474,7 @@ while(true)switch(s){case 0:o=p.adL(b)
 n=t.N
 m=A.aM(["Access-Control-Allow-Origin","*","Access-Control-Allow-Headers","Content-Type","Referrer-Policy","no-referrer-when-downgrade"],n,n)
 s=3
-return A.a6(p.a.uv("GET",A.va("http://127.0.0.1:5000/plattform?inputStartAddress="+c+"&inputEndAddress="+a+"&tripMode="+o),m),$async$rW)
+return A.a6(p.a.uv("GET",A.va("https://vmrp-web-app.herokuapp.com/plattform?inputStartAddress="+c+"&inputEndAddress="+a+"&tripMode="+o),m),$async$rW)
 case 3:l=e
 q=A.aHa(B.bj.dz(0,A.aKJ(A.aIM(l.e).c.a.i(0,"charset")).dz(0,l.w)))
 s=1
