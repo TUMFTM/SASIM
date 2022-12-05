@@ -43,7 +43,11 @@ class MobiScoreController:
         return mobi_score
 
     def _initialise_db(self):
-        mobi_score_path = os.path.join(ROOT_DIR, 'multimodal-costbased-routeplanner', 'db', 'mobi_score', 'mobi_score.csv')
+        # mobi_score_path = os.path.join(ROOT_DIR, 'multimodal-costbased-routeplanner', 'db', 'mobi_score', 'mobi_score.csv')
+
+        # heroku deployment path
+        mobi_score_path = os.path.join(ROOT_DIR, 'db', 'mobi_score', 'mobi_score.csv')
+
         df_db_mobi_score = pd.read_csv(mobi_score_path, delimiter=",", index_col=0)
 
         return df_db_mobi_score
