@@ -6,7 +6,10 @@ import os
 
 # VARIANT 2:
 # root directory for "run"
+ROOT_DIR = os.path.realpath(os.path.join(os.getcwd(), '../../..'))
 ROOT_DIR = os.path.realpath(os.path.join(os.getcwd(), '..'))
+
+
 
 # VARIANT 3:
 # root directory for "rAA_new"
