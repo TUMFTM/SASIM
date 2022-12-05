@@ -72,9 +72,17 @@ class CostsController:
         return InternalCosts(internal_costs=internal_costs_mvv)
 
     def _initialise_db(self):
-        internal_costs_path = os.path.join(ROOT_DIR, 'multimodal-costbased-routeplanner', 'db', 'costs_db',
+        # internal_costs_path = os.path.join(ROOT_DIR, 'multimodal-costbased-routeplanner', 'db', 'costs_db',
+        #                                    'db_internal_costs.csv')
+        # internal_costs_mvv_path = os.path.join(ROOT_DIR, 'multimodal-costbased-routeplanner', 'db', 'costs_db',
+        #                                        'db_internal_costs_mvv.csv')
+        # external_costs_path = os.path.join(ROOT_DIR, 'multimodal-costbased-routeplanner', 'db', 'costs_db',
+        #                                    'db_external_costs.csv')
+
+        # heroku deployment path
+        internal_costs_path = os.path.join(ROOT_DIR, 'db', 'costs_db',
                                            'db_internal_costs.csv')
-        internal_costs_mvv_path = os.path.join(ROOT_DIR, 'multimodal-costbased-routeplanner', 'db', 'costs_db',
+        internal_costs_mvv_path = os.path.join(ROOT_DIR, 'db', 'costs_db',
                                                'db_internal_costs_mvv.csv')
         external_costs_path = os.path.join(ROOT_DIR, 'db', 'costs_db',
                                            'db_external_costs.csv')

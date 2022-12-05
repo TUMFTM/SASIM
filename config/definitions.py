@@ -13,4 +13,4 @@ import os
 
 # VARIANT 3:
 # root directory for heroku deployment
-ROOT_DIR = os.path.realpath(os.path.join(os.getcwd(), 'app'))
+ROOT_DIR = os.path.realpath(os.path.join(os.getcwd()))
