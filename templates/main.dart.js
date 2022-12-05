@@ -75977,10 +75977,10 @@ case"SHARENOW":return"Sharenow"
 case"PT":return"\xd6PNV"
 case"INTERMODAL_PT_BIKE":return"\xd6PNV + Fahrrad"
 default:return"nicht vorhanden"}},
-adK(a){switch(a){case"A":return B.yI
-case"B":return B.yJ
-case"C":return B.yK
-case"D":return B.yL
+adK(a){switch(a){case"A":return B.yD
+case"B":return B.yE
+case"C":return B.yF
+case"D":return B.yG
 case"E":return B.mw
 default:return B.mw}}}
 A.Nh.prototype={
@@ -80368,11 +80368,11 @@ B.yA=new A.o4(2,"paused")
 B.yB=new A.o4(3,"detached")
 B.yC=new A.Gx(!1,127)
 B.mv=new A.Gy(127)
-B.yI=new A.eK("assets/mobiScore/mobiscore_a.png")
-B.yJ=new A.eK("assets/mobiScore/mobiscore_b.png")
-B.yK=new A.eK("assets/mobiScore/mobiscore_c.png")
-B.yL=new A.eK("assets/mobiScore/mobiscore_d.png")
-B.mw=new A.eK("assets/mobiScore/mobiscore_e.png")
+B.yD=new A.eK("assets/mobiscore/mobiscore_a.png")
+B.yE=new A.eK("assets/mobiscore/mobiscore_b.png")
+B.yF=new A.eK("assets/mobiscore/mobiscore_c.png")
+B.yG=new A.eK("assets/mobiscore/mobiscore_d.png")
+B.mw=new A.eK("assets/mobiscore/mobiscore_e.png")
 B.fN=new A.d5("BarRenderer.barGroupIndex",t.xM)
 B.mx=new A.d5("BarRenderer.barGroupCount",t.xM)
 B.my=new A.d5("Axis.measureAxisId",t.ls)
@@ -80738,18 +80738,18 @@ B.FC=new A.ep(B.Fp,null)
 B.B0=new A.re(B.S,null,null,B.FC,null)
 B.B1=new A.xv(null,null,null,null,null,null,null,null,null)
 B.B2=new A.xw(null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
-B.yE=new A.eK("assets/icons/icon_emmy.png")
-B.B3=new A.jn(B.yE,null)
-B.yG=new A.eK("assets/icons/icon_mvv.png")
-B.B4=new A.jn(B.yG,null)
-B.yD=new A.eK("assets/icons/icon_sharenow.jpg")
-B.B5=new A.jn(B.yD,null)
-B.yH=new A.eK("assets/icons/icon_tier.jpg")
-B.B6=new A.jn(B.yH,null)
+B.yI=new A.eK("assets/icons/icon_emmy.png")
+B.B3=new A.jn(B.yI,null)
+B.yK=new A.eK("assets/icons/icon_mvv.png")
+B.B4=new A.jn(B.yK,null)
+B.yH=new A.eK("assets/icons/icon_sharenow.jpg")
+B.B5=new A.jn(B.yH,null)
+B.yL=new A.eK("assets/icons/icon_tier.jpg")
+B.B6=new A.jn(B.yL,null)
 B.yN=new A.eK("assets/icons/icon_mvv_plus_bike.png")
 B.B7=new A.jn(B.yN,null)
-B.yF=new A.eK("assets/icons/icon_cab.png")
-B.B8=new A.jn(B.yF,null)
+B.yJ=new A.eK("assets/icons/icon_cab.png")
+B.B8=new A.jn(B.yJ,null)
 B.yM=new A.eK("assets/icons/icon_flinkster.png")
 B.B9=new A.jn(B.yM,null)
 B.n5=new A.dW(B.q)
