@@ -6,7 +6,7 @@ import os
 
 # VARIANT 2:
 # root directory for "run"
-ROOT_DIR = os.path.realpath(os.path.join(os.getcwd(), '../../..'))
+# ROOT_DIR = os.path.realpath(os.path.join(os.getcwd(), '../../..'))
 ROOT_DIR = os.path.realpath(os.path.join(os.getcwd(), '..'))
 
 
