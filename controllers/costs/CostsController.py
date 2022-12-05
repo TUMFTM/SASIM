@@ -76,7 +76,7 @@ class CostsController:
                                            'db_internal_costs.csv')
         internal_costs_mvv_path = os.path.join(ROOT_DIR, 'multimodal-costbased-routeplanner', 'db', 'costs_db',
                                                'db_internal_costs_mvv.csv')
-        external_costs_path = os.path.join(ROOT_DIR, 'multimodal-costbased-routeplanner', 'db', 'costs_db',
+        external_costs_path = os.path.join(ROOT_DIR, 'db', 'costs_db',
                                            'db_external_costs.csv')
 
         df_db_internal_costs = pd.read_csv(internal_costs_path, delimiter=",", index_col=0)
