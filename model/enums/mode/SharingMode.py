@@ -12,3 +12,28 @@ class SharingMode(Mode):
     MOPED_SHARING = 'MOPED_SHARING'
     BICYCLE_SHARING = 'BICYCLE_SHARING'
     CAR_SHARING = 'CAR_SHARING'
+
+
+# class CarSharing(SharingMode):
+#     FLINKSTER = 'FLINKSTER'
+#     SHARENOW = 'SHARENOW'
+#     STATTAUTO = 'STATTAUTO'
+#
+#
+# class EscooterSharing(SharingMode):
+#     TIER = 'TIER_BIKE'
+#     VOI = 'VOI'
+#
+#
+# class MopedSharing(SharingMode):
+#     EMMY = 'EMMY'
+#     TIER = 'TIER_MOPED'
+#
+#
+# class BikeSharing(SharingMode):
+#     CAB = 'CAB'
+#     MVG_BIKE = 'MVG_BIKE'
+#
+#
+# class EBikeSharing(SharingMode):
+#     pass

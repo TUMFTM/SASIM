@@ -1,12 +1,14 @@
 from controllers.costs.CostsController import CostsController
 from controllers.mobi_score.MobiScoreController import MobiScoreController
 from controllers.mvv.MvvController import MvvController
-from controllers.otp.OtpController import OtpController
+# from controllers.otp.OtpController import OtpController
+from controllers.muenchenapi.MunchenapiController import MuenchenapiController
 from controllers.sharing.EmmyController import EmmyController
 from controllers.sharing.ShareNowController import ShareNowController
 from controllers.sharing.TierController import TierController
 from controllers.sharing.deutsche_bahn.CallABikeController import CallABikeController
 from controllers.sharing.deutsche_bahn.FlinksterController import FlinksterController
+
 from model.entities.costs.Costs import Costs
 from model.entities.costs.ExternalCosts import ExternalCosts
 from model.entities.costs.InternalCosts import InternalCosts
@@ -20,13 +22,15 @@ from model.enums.mode.Mode import Mode
 from model.enums.mode.SharingMode import SharingMode
 from model.enums.mode.TripMode import TripMode
 from model.enums.trip_type.TripType import TripType
+
 from helpers.GeoHelper import GeoHelper
 
 
 class TripController:
     def __init__(self):
 
-        self._otp_controller = OtpController()
+        # self._routing_controller = OtpController()
+        self._routing_controller = MuenchenapiController()
         self._mvv_controller = MvvController()
 
         self._emmy_controller = EmmyController()
@@ -46,8 +50,7 @@ class TripController:
 
         if (trip_type == TripType.TYPE_1):
 
-            mode = self._get_mode_from_trip_mode(trip_mode=trip_mode)
-
+            mode = self._get_mode_from_trip_mode(trip_mode)
             trip = self._get_trip_type_1(start_location=start_location, end_location=end_location, mode=mode,
                                          trip_mode=trip_mode)
 
@@ -72,18 +75,18 @@ class TripController:
 
         return trip
 
-    def _get_trip_type_1(self, start_location: Location, end_location: Location, mode: IndividualMode,
+    def _get_trip_type_1(self, start_location: Location, end_location: Location, mode: Mode,
                          trip_mode: TripMode):
 
-        otp_response = self._otp_controller.otp_request(
-            input_startloc=start_location,
-            input_endloc=end_location,
-            mode=mode
+        router_response = self._routing_controller.get_response(
+            start_location=start_location,
+            end_location=end_location,
+            mode=trip_mode
         )
 
-        waypoints = self._otp_controller.get_waypoints(otp_response)
-        duration = self._otp_controller.get_duration(otp_response)
-        distance = self._otp_controller.get_distance(otp_response)
+        waypoints = self._routing_controller.get_waypoints(router_response)
+        duration = self._routing_controller.get_duration(router_response)
+        distance = self._routing_controller.get_distance(router_response)
 
         external_costs = self._costs_controller.get_external_costs(
             distance=distance,
@@ -135,15 +138,15 @@ class TripController:
         location_closest_vehicle = self._get_sharing_position(start_location=start_location, sharing_mode=sharing_mode)
 
         # 2. get walk waypoints, distance, duration, costs
-        otp_response_walk = self._otp_controller.otp_request(
-            input_startloc=start_location,
-            input_endloc=location_closest_vehicle,
-            mode=IndividualMode.WALK
+        router_response_walk = self._routing_controller.get_response(
+            start_location=start_location,
+            end_location=location_closest_vehicle,
+            mode=TripMode.WALK
         )
 
-        distance_walk = self._otp_controller.get_distance(response=otp_response_walk)
-        duration_walk = self._otp_controller.get_duration(response=otp_response_walk)
-        waypoints_walk = self._otp_controller.get_waypoints(response=otp_response_walk)
+        distance_walk = self._routing_controller.get_distance(response=router_response_walk)
+        duration_walk = self._routing_controller.get_duration(response=router_response_walk)
+        waypoints_walk = self._routing_controller.get_waypoints(response=router_response_walk)
         internal_costs_walk = self._costs_controller.get_internal_costs(
             distance=distance_walk,
             duration=duration_walk,
@@ -162,15 +165,15 @@ class TripController:
         )
 
         # 3. get ride waypoints, distance, duration, costs
-        otp_response_ride = self._otp_controller.otp_request(
-            input_startloc=location_closest_vehicle,
-            input_endloc=end_location,
-            mode=sharing_mode
+        router_response_ride = self._routing_controller.get_response(
+            start_location=location_closest_vehicle,
+            end_location=end_location,
+            mode=trip_mode
         )
 
-        distance_ride = self._otp_controller.get_distance(response=otp_response_ride)
-        duration_ride = self._otp_controller.get_duration(response=otp_response_ride)
-        waypoints_ride = self._otp_controller.get_waypoints(response=otp_response_ride)
+        distance_ride = self._routing_controller.get_distance(response=router_response_ride)
+        duration_ride = self._routing_controller.get_duration(response=router_response_ride)
+        waypoints_ride = self._routing_controller.get_waypoints(response=router_response_ride)
         internal_costs_ride = self._costs_controller.get_internal_costs(
             distance=distance_ride,
             duration=duration_ride,
@@ -229,14 +232,15 @@ class TripController:
             if (trip_type == TripType.TYPE_4 and i == 0):
 
                 end_location_bike = mvv_trip_data.mvv_trip[0].waypoints[-1]
-                otp_response = self._otp_controller.otp_request(input_startloc=start_location,
-                                                                input_endloc=end_location_bike,
-                                                                mode=IndividualMode.BICYCLE)
+                router_response = self._routing_controller.get_response(
+                    start_location=start_location,
+                    end_location=end_location_bike,
+                    mode=TripMode.BICYCLE)
 
                 mode = IndividualMode.WALK
-                duration = self._otp_controller.get_duration(otp_response)
-                distance = self._otp_controller.get_distance(otp_response)
-                waypoints = self._otp_controller.get_waypoints(otp_response)
+                duration = self._routing_controller.get_duration(router_response)
+                distance = self._routing_controller.get_distance(router_response)
+                waypoints = self._routing_controller.get_waypoints(router_response)
                 internal_costs = self._costs_controller.get_internal_costs(distance, duration, mode)
                 external_costs = self._costs_controller.get_external_costs(distance, mode)
                 costs = Costs(
@@ -383,6 +387,7 @@ class TripController:
             print("ERROR: trip mode not valid for conversion into mode")
             return None
 
+
 # ## TESTING
 # # Ansprengerstr. 22
 # lat1 = 48.1663834
@@ -396,9 +401,21 @@ class TripController:
 # loc2 = Location(lat=lat2, lon=lon2)
 #
 # trip_controller = TripController()
-# trip = trip_controller.get_trip(loc1, loc2, TripType.TYPE_4)
-# trip_n = trip_controller.get_trip(loc1, loc2, TripType.TYPE_3)
-# print("mobiscore: " + str(trip.mobi_score))
+# trip = trip_controller.get_trip(loc1, loc2, TripMode.CAR)
+# trip_n = trip_controller.get_trip(loc1, loc2, TripMode.TIER)
+# trip_pt = trip_controller.get_trip(loc1, loc2, TripMode.PT)
+#
+# print("\nmobiscore: " + str(trip.mobi_score))
 # print("distance: " + str(trip.distance))
 # print("internal: " + str(trip.costs.internal_costs.internal_costs))
 # print("external: " + str(trip.costs.external_costs.external_costs))
+#
+# print("\nmobiscore: " + str(trip_n.mobi_score))
+# print("distance: " + str(trip_n.distance))
+# print("internal: " + str(trip_n.costs.internal_costs.internal_costs))
+# print("external: " + str(trip_n.costs.external_costs.external_costs))
+#
+# print("\nmobiscore: " + str(trip_pt.mobi_score))
+# print("distance: " + str(trip_pt.distance))
+# print("internal: " + str(trip_pt.costs.internal_costs.internal_costs))
+# print("external: " + str(trip_pt.costs.external_costs.external_costs))

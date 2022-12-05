@@ -9,3 +9,4 @@ class IndividualMode(Mode):
     EMOPED = 'EMOPED'
     CAR = 'CAR_GASOLINE'
     ECAR = 'CAR_BEV'
+    ESCOOTER = 'ESCOOTER'

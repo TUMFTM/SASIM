@@ -18,7 +18,7 @@ class OtpController:
 
         self.otp_helper = OtpHelper()
 
-    def get_waypoints(self, response: json) -> List[Location or 0]:
+    def get_waypoints(self, response: json) -> List[Location] or None:
         try:
 
             list_locations = []
@@ -35,11 +35,11 @@ class OtpController:
 
         except KeyError:
             print('OTP KeyError route coordinates')
-            return 0
+            return None
 
         except IndexError:
             print("Liste der OTP Strecken ist leer")
-            return 0
+            return None
 
 
     def get_distance(self, response: json) -> float:
@@ -78,12 +78,12 @@ class OtpController:
         return duration / 60
 
 
-    def otp_request(self, input_startloc, input_endloc, mode: Mode,
+    def get_response(self, start_location: Location, end_location: Locaton, mode: TripMode,
                      input_time=None, input_waxWalkDistance='500'):
 
         mode = self.otp_helper.mode_to_otp_mode(mode).value
-        input_startloc = self.otp_helper.location_to_otp_format(input_startloc)
-        input_endloc = self.otp_helper.location_to_otp_format(input_endloc)
+        start_location = self.otp_helper.location_to_otp_format(start_location)
+        end_location = self.otp_helper.location_to_otp_format(end_location)
 
         if not input_time:
             input_time = datetime.now()
@@ -91,8 +91,8 @@ class OtpController:
             # input_time = '1:02pm&date=22-02-2020'
         start = t.time()
         response = requests.get(
-            "http://localhost:8080/otp/routers/default/plan?fromPlace=" + input_startloc + "&toPlace=" +
-            input_endloc + "&time=" + str(input_time.hour) + ":" + str(input_time.minute) + "&date=" +
+            "http://localhost:8080/otp/routers/default/plan?fromPlace=" + start_location + "&toPlace=" +
+            end_location + "&time=" + str(input_time.hour) + ":" + str(input_time.minute) + "&date=" +
             str(input_time.month) + "-" + str(input_time.day) + "-" + str(input_time.year) + "&mode=" +
             mode + "&maxWalkDistance=50000&arriveBy=false")
         print("otp response: " + str(response))
