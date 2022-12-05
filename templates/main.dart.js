@@ -75977,11 +75977,11 @@ case"SHARENOW":return"Sharenow"
 case"PT":return"\xd6PNV"
 case"INTERMODAL_PT_BIKE":return"\xd6PNV + Fahrrad"
 default:return"nicht vorhanden"}},
-adK(a){var s="assets/mobiScore/MobiScore-E.png"
-switch(a){case"A":return"assets/mobiScore/MobiScore-A.png"
-case"B":return"assets/mobiScore/MobiScore-B.png"
-case"C":return"assets/mobiScore/MobiScore-C.png"
-case"D":return"assets/mobiScore/MobiScore-D.png"
+adK(a){var s="assets/mobiScore/mobiscore_e.png"
+switch(a){case"A":return"assets/mobiScore/mobiscore_a.png"
+case"B":return"assets/mobiScore/mobiscore_b.png"
+case"C":return"assets/mobiScore/mobiscore_c.png"
+case"D":return"assets/mobiScore/mobiscore_d.png"
 case"E":return s
 default:return s}}}
 A.Nh.prototype={
