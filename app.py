@@ -2,13 +2,22 @@ from flask import Flask, request
 from flask_cors import CORS
 from flask import send_from_directory
 from flask import render_template
-
+from flask_caching import Cache
 
 from controllers.geocoding.GeocodingController import GeocodingController
 from controllers.trip.TripController import TripController
 from helpers.ApiHelper import ApiHelper
 
+config = {
+    "DEBUG": True,          # some Flask specific configs
+    "CACHE_TYPE": "SimpleCache",  # Flask-Caching related configs
+    "CACHE_DEFAULT_TIMEOUT": 300
+}
+
 app = Flask(__name__)
+
+app.config.from_mapping(config)
+cache = Cache(app)
 CORS(app)
 
 FLUTTER_WEB_APP = 'templates'
@@ -31,13 +40,12 @@ def return_flutter_doc(name):
 @app.route('/plattform', methods=['GET'])
 def return_trip():
     api_helper = ApiHelper()
-    geocoding_controller = GeocodingController()
 
     input_start_address = str(request.args['inputStartAddress'])
-    start_location = geocoding_controller.get_location(input_start_address)
+    start_location = get_geolocation(input_start_address)
 
     input_end_address = str(request.args['inputEndAddress'])
-    end_location = geocoding_controller.get_location(input_end_address)
+    end_location = get_geolocation(input_end_address)
 
     input_trip_mode = str(request.args['tripMode'])
     trip_mode = api_helper.get_trip_mode_from_input(input_trip_mode)
@@ -157,6 +165,12 @@ def return_trip():
     }
 
     return dict_new_result
+
+@cache.memoize(300)
+def get_geolocation(address: str):
+    geocoding_controller = GeocodingController()
+
+    return geocoding_controller.get_location(address)
 
 
 if __name__ == "__main__":
