@@ -22,15 +22,11 @@ CORS(server)
 
 FLUTTER_WEB_APP = 'templates'
 
-@server.route('/web/')
+@server.route('/')
 def render_page_web():
     return render_template('index.html')
 
-@server.route('/')
-def home_page_web():
-    return render_page_web()
-
-@server.route('/web/<path:name>')
+@server.route('/<path:name>')
 def return_flutter_doc(name):
     datalist = str(name).split('/')
     DIR_NAME = FLUTTER_WEB_APP
