@@ -27,7 +27,7 @@ def render_page_web():
     return render_template('index.html')
 
 @server.route('/')
-def home_page_weg():
+def home_page_web():
     return render_page_web()
 
 @server.route('/web/<path:name>')
