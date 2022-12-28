@@ -20,9 +20,3 @@ services:
       - 443:443
     depends_on:
       - flask_app
-
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
