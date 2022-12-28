@@ -22,9 +22,13 @@ CORS(server)
 
 FLUTTER_WEB_APP = 'templates'
 
-@server.route('/')
+@server.route('/web/')
 def render_page_web():
     return render_template('index.html')
+
+@server.route('/')
+def home_page_weg():
+    return render_page_web()
 
 @server.route('/web/<path:name>')
 def return_flutter_doc(name):
