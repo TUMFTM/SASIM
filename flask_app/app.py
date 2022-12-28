@@ -14,19 +14,19 @@ config = {
     "CACHE_DEFAULT_TIMEOUT": 300
 }
 
-app = Flask(__name__)
+server = Flask(__name__)
 
-app.config.from_mapping(config)
-cache = Cache(app)
-CORS(app)
+server.config.from_mapping(config)
+cache = Cache(server)
+CORS(server)
 
 FLUTTER_WEB_APP = 'templates'
 
-@app.route('/web/')
+@server.route('/web/')
 def render_page_web():
     return render_template('index.html')
 
-@app.route('/web/<path:name>')
+@server.route('/web/<path:name>')
 def return_flutter_doc(name):
     datalist = str(name).split('/')
     DIR_NAME = FLUTTER_WEB_APP
@@ -37,7 +37,7 @@ def return_flutter_doc(name):
 
     return send_from_directory(DIR_NAME, datalist[-1])
 
-@app.route('/plattform', methods=['GET'])
+@server.route('/plattform', methods=['GET'])
 def return_trip():
     api_helper = ApiHelper()
 
@@ -172,6 +172,3 @@ def get_geolocation(address: str):
 
     return geocoding_controller.get_location(address)
 
-
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000)
