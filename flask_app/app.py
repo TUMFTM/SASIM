@@ -26,7 +26,7 @@ FLUTTER_WEB_APP = 'templates'
 def render_page_web():
     return render_template('index.html')
 
-@server.route('/<path:name>')
+@server.route('/web/<path:name>')
 def return_flutter_doc(name):
     datalist = str(name).split('/')
     DIR_NAME = FLUTTER_WEB_APP
