@@ -13,4 +13,4 @@ import os
 
 # VARIANT 3:
 # root directory for heroku deployment
-ROOT_DIR = os.path.realpath(os.path.join(os.getcwd(),'flask_app'))
+ROOT_DIR = os.path.realpath(os.path.join(os.getcwd()))
