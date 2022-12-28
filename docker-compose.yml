@@ -1,15 +1,15 @@
-version: '1'
+version: '2'
 
 services:
   flask_app:
     container_name: flask_app
     restart: always
     build: ./flask_app
-    expose:
-      - 8000
+    ports:
+      8000:8000
     command: gunicorn -w 1 -b 0.0.0.0:8000 wsgi:server
     volumes:
-      - ./data/static_colume:/code/static
+      - ./flask_app:/usr/src/app/
 
   nginx:
     container_name: nginx
@@ -17,17 +17,5 @@ services:
     build: ./nginx
     ports:
       - 80:80
-      - 443:443
-    volumes:
-      - "/path/to/static/data/static_volume:/home/flask_app/static"
-      - ./certbot/www:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/nginx/ssl/:ro
     depends_on:
       - flask_app
-
-  certbot:
-    container_name: certbot
-    image: certbot/certbot:latest
-    volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
