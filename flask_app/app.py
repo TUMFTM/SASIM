@@ -26,7 +26,7 @@ FLUTTER_WEB_APP = 'templates'
 def render_page_web():
     return render_template('index.html')
 
-@server.route('/')
+@app.route('/')
 def redirect_internally_to_page_web():
     return redirect('/web/', code=302)
 
