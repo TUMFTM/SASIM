@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, redirect
 from flask_cors import CORS
 from flask import send_from_directory
 from flask import render_template
@@ -25,6 +25,10 @@ FLUTTER_WEB_APP = 'templates'
 @server.route('/web/')
 def render_page_web():
     return render_template('index.html')
+
+@server.route('/')
+def redirect_internally_to_page_web():
+    return redirect('/web/', code=302)
 
 @server.route('/web/<path:name>')
 def return_flutter_doc(name):
