@@ -83,6 +83,9 @@ has to be replaced by
   <base href="/web/">
 ```
 
+### Deploy using docker container
+The Web-App can be easily deployed using a docker-container. For own deployment the server_name attribute in nginx/project.config has to be replaced by personal url.
+
 ## Contributors
 
 ### Research
