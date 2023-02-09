@@ -27,8 +27,6 @@ tierkey = '[Own TIER API-Key]'
 
 3. change constant ROOT_DIR in config/definitions to variant 2 by commenting VARIANT 1 and uncommenting VARIANT 2. VARIANT 1 is needed if you want to build an .exe file
 
-3. run a local instance of OTP2 (Open Trip Planner) on the local device of the developer (find tutorial here --> https://docs.opentripplanner.org/en/latest/Basic-Tutorial/)
-
 4. The application server can be then deployed locally (--> run app.py). 
 
 ### REST-API
@@ -48,8 +46,8 @@ following modes can be used as the param tripMode:
 - "EBICYCLE" : trip with a private electric bicycle
 - "EMMY: trip using the closest Emmy sharing electric moped and walking to the vehicle
 - "TIER" : trip using the closest TIER sharing e-scooter and walking to the vehicle
-- "CAB": trip using the closest Call a Bike sharing bicycle and walking to the vehicle
-- "FLINKSTER": trip using the closest Flinkster sharing car and walking to the vehicle
+- (DB API deprecated - not used in frontend) "CAB": trip using the closest Call a Bike sharing bicycle and walking to the vehicle
+- (DB API deprecated - not used in frontend) "FLINKSTER": trip using the closest Flinkster sharing car and walking to the vehicle
 - "SHARENOW" : trip using the closest Sharenow sharing car and walking to the vehicle
 - "PT" : trip using public transport and walking to the first station
 - "INTERMODAL_PT_BIKE" : trip using public transport and using the bicycle to get to the first station
@@ -75,17 +73,56 @@ trip = trip_controller.get_trip(start_location, end_location, trip_mode)
 All munich and mode specific variables from research are stored in the directory db in csv files. If the values in
 current research or pricing plans of the mobility sharing services change, these csv. files must be updated.
 
+### Frontend
+The frontend was developed using the Dart and SDK Flutter. To integrate the frontend into the flask application server, a Flutter build file has to be created and then the content of build/web folder has to be added to the flask_app/templates folder. IMPORTANT: in flask_app/templates/index.html the line 
+```python
+  <base href="/">
+```
+has to be replaced by
+```python
+  <base href="/web/">
+```
+
 ## Contributors
 
 ### Research
+External Costs for Munich:
+Schröder, Kirn et al. - Ending the myth of mobility at zero costs: An external cost analysis
+https://www.sciencedirect.com/science/article/pii/S0739885922000713?via%3Dihub
 
 ### Development
+flask backend-server and flutter frontend developed by Gusztáv Ottrubay 
+
+(gusztav.ottrubay@proton.me | https://github.com/gusti-ott)
 
 ### Open Source Software
+#### Maps: 
+OpenStreetMap
+https://www.openstreetmap.org/#map=7/47.714/13.349
+
+#### Geocoding: 
+Nominatim with OpenStreetMap data
+https://nominatim.org/
+
+### Open APIs
+#### Muenchen API
+routing car, bicycle, walk and public transport paths
+
+#### MVV API
+routing public transport paths and fetching price data
+
+#### EMMY API
+fetching location of EMMY vehicles
+
+#### TIER API
+fetching location of TIER vehicles
+
+#### SHARENOW API
+fetching location of SHARENOW vehicles
 
 ## Support
 
-contact gusztav.ottrubay@tum.de for support
+contact daniel.schroeder@tum.de for support
 
 ## Licence
 
