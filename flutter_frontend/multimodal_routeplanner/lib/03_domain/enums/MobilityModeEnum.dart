@@ -1,0 +1,21 @@
+enum MobilityModeEnum {
+  car,
+  ecar,
+  bike,
+  ebike,
+  moped,
+  emoped,
+  escooter,
+  subway,
+  tram,
+  regionalTrain,
+  bus,
+  mvg,
+  emmy,
+  tier,
+  flinkster,
+  sharenow,
+  cab,
+  walk,
+  intermodal
+}

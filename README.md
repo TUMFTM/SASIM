@@ -71,10 +71,22 @@ trip = trip_controller.get_trip(start_location, end_location, trip_mode)
 ```
 
 #### pseudo database
-All munich and mode specific variables from research are stored in the directory db in csv files. If the values in current research or pricing plans of the mobility sharing services change, these csv. files must be updated.
+
+All munich and mode specific variables from research are stored in the directory db in csv files. If the values in
+current research or pricing plans of the mobility sharing services change, these csv. files must be updated.
+
+## Contributors
+
+### Research
+
+### Development
+
+### Open Source Software
 
 ## Support
+
 contact gusztav.ottrubay@tum.de for support
 
 ## Licence
+
 MIT Public Licence
