@@ -11,7 +11,7 @@ The VMRP Web App is a routeplanner for the city of Munich, that enables to plan 
 - (coming soon ...) get further information on the external costs of a particular route 
 
 ## Use of Web-App (coming soon ...)
-The VMRP Web-App is already deployed and can be accessed at sasim.mcube-cluster.de. It is to note, that the current version 0.2 is a beta-version, and bugs can occur.
+The VMRP Web-App is already deployed and can be accessed at http://www.sasim.mcube-cluster.de. It is to note, that the current version 0.2 is a beta-version, and bugs can occur.
 
 ## Get started for Developers
 
