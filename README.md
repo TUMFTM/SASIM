@@ -18,10 +18,9 @@ The VMRP Web-App is already deployed and can be accessed at sasim.mcube-cluster.
 ### Run Project
 Before the project can be run, make sure following steps are done:
 1. clone project to your local repository
-2. add your own file api_keys.py to the config folder. Then add your TIER and DB Api keys in the following format:
+2. add your own API keys to the file config/api_keys.py. You'll need a TIER API key and add it by replacing following attribute:
 
 ```
-dbkey = '[Own DB API-Key]'
 tierkey = '[Own TIER API-Key]'
 ```
 
