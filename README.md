@@ -15,16 +15,16 @@ The VMRP Web-App is already deployed and can be accessed at http://www.sasim.mcu
 
 ## Get started for Developers
 
-### Run Project
+### Run Project locally
 Before the project can be run, make sure following steps are done:
 1. clone project to your local repository
-2. add your own API keys to the file config/api_keys.py. You'll need a TIER API key and add it by replacing following attribute:
+2. add your own API keys to the file config/api_keys.py. Currently you'll only need a TIER API key and add it as a string by replacing following attribute:
 
 ```
 tierkey = '[Own TIER API-Key]'
 ```
 
-3. change constant ROOT_DIR in config/definitions to variant 2 by commenting VARIANT 1 and uncommenting VARIANT 2. VARIANT 1 is needed if you want to build an .exe file
+3. Make sure, your have the right root directory selected, by changing constant ROOT_DIR in config/definitions to variant 2 by commenting other variants and uncommenting VARIANT 3. VARIANT 2 is needed if you want to build an .exe file
 
 4. The application server can be then deployed locally (--> run wsgi.py). 
 
