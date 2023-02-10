@@ -27,7 +27,7 @@ tierkey = '[Own TIER API-Key]'
 
 3. change constant ROOT_DIR in config/definitions to variant 2 by commenting VARIANT 1 and uncommenting VARIANT 2. VARIANT 1 is needed if you want to build an .exe file
 
-4. The application server can be then deployed locally (--> run app.py). 
+4. The application server can be then deployed locally (--> run wsgi.py). 
 
 ### REST-API
 The Backend REST-Api can be accessed at localhost:5000/plattform/ with the following params:
