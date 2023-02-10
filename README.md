@@ -17,24 +17,33 @@ The VMRP Web-App is already deployed and can be accessed at http://www.sasim.mcu
 
 ### Run Project
 Before the project can be run, make sure following steps are done:
+
 1. clone project to your local repository
-2. add your own API keys to the file config/api_keys.py. You'll need a TIER API key and add it by replacing following attribute:
+2. add your own API keys to the file config/api_keys.py. You'll need a TIER API key and add it by replacing following
+   attribute:
 
 ```
 tierkey = '[Own TIER API-Key]'
 ```
 
-3. change constant ROOT_DIR in config/definitions to variant 2 by commenting VARIANT 1 and uncommenting VARIANT 2. VARIANT 1 is needed if you want to build an .exe file
+3. change constant ROOT_DIR in config/definitions to variant 2 by commenting VARIANT 1 and uncommenting VARIANT 2.
+   VARIANT 1 is needed if you want to build an .exe file
 
-4. The application server can be then deployed locally (--> run wsgi.py). 
+4. The application server can be then deployed locally by runing following command in the root of the flask_app project
+
+``` console
+python wsgi.py 
+```
 
 ### REST-API
-The Backend REST-Api can be accessed at localhost:5000/plattform/ with the following params:
+
+The Backend REST-Api can be accessed at localhost:8000/plattform/ with the following params:
+
 - inputStartAddress:
-a Munich address as type string in format "[Streetname] [#], München"
-- inputEndAddress: 
-a Munich address as type string in format "[Streetname] [#], München"
-- tripMode: a valid tripMode 
+  a Munich address as type string in format "[Streetname] [#], München"
+- inputEndAddress:
+  a Munich address as type string in format "[Streetname] [#], München"
+- tripMode: a valid tripMode
 
 following modes can be used as the param tripMode:
 - "CAR" : trip with a private gasoline car
@@ -54,7 +63,12 @@ following modes can be used as the param tripMode:
 For accessing the Web-App Frontend, use localhost:5000/web/ (ideally in chrome web browser)
 
 ### Structure of Backend
-The backend uses a MVC Architecture. The Model is specified in the directories model/entities and model/enums. Furthermode multiple controller classes are used for the core functionalities, which are called by the TripController class, to create a new trip. To plan a new route create an object of the class TripController and execute the method get_trip() with the input variables start_location and end_location of the internal class Location, and trip_mode of the internal class TripMode.
+
+The backend uses an MVC Architecture. The Model is specified in the directories model/entities and model/enums.
+Furthermode multiple controller classes are used for the core functionalities, which are called by the TripController
+class, to create a new trip. To plan a new route create an object of the class TripController and execute the method
+get_trip() with the input variables start_location and end_location of the internal class Location, and trip_mode of the
+internal class TripMode.
 
 #### example: creating a trip
 ```python
@@ -81,7 +95,8 @@ To integrate the frontend into the flask application server, a Flutter build fil
   flutter build web
 ```
 and then the content of build/web folder has to be added to the flask_app/templates folder. IMPORTANT: in flask_app/templates/index.html the line 
-```python
+
+```html
   <base href="/">
 ```
 has to be replaced by
