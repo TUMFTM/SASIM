@@ -1,2 +1,2 @@
-dbkey = 'empty'
-tierkey = 'bpEUTJEBTf74oGRWxaIcW7aeZMzDDODe1yBoSxi2'
+dbkey = 'insert own API Key here'
+tierkey = 'insert own API Key here'
