@@ -56,7 +56,7 @@ For accessing the Web-App Frontend, use localhost:5000/web/ (ideally in chrome w
 ### Structure of Backend
 The backend uses a MVC Architecture. The Model is specified in the directories model/entities and model/enums. Furthermode multiple controller classes are used for the core functionalities, which are called by the TripController class, to create a new trip. To plan a new route create an object of the class TripController and execute the method get_trip() with the input variables start_location and end_location of the internal class Location, and trip_mode of the internal class TripMode.
 
-an example for creating a trip:
+#### example: creating a trip
 ```python
 trip_controller = TripController()
 
@@ -73,14 +73,28 @@ All munich and mode specific variables from research are stored in the directory
 current research or pricing plans of the mobility sharing services change, these csv. files must be updated.
 
 ### Frontend
-The frontend was developed using the Dart and SDK Flutter. To integrate the frontend into the flask application server, a Flutter build file has to be created and then the content of build/web folder has to be added to the flask_app/templates folder. IMPORTANT: in flask_app/templates/index.html the line 
+The frontend was developed using the Dart and SDK Flutter. 
+
+#### integration into flask web app
+To integrate the frontend into the flask application server, a Flutter build file has to be created by using the build command
+```console
+  flutter build web
+```
+and then the content of build/web folder has to be added to the flask_app/templates folder. IMPORTANT: in flask_app/templates/index.html the line 
 ```python
   <base href="/">
 ```
 has to be replaced by
-```python
+```
   <base href="/web/">
 ```
+
+#### running flutter web server locally
+to run to flutter web server locally use the command
+```console
+  flutter run
+```
+by default the remote backend server deployed at the Institute of Automotive Technology TUM is used. To use your own local backend server change the url property in flutter_frontend/multimodal_routeplanner/lib/04_infrastructure/datasources/route_remote_datasource.dart
 
 ### Deploy using docker container
 The Web-App can be easily deployed using a docker-container. For own deployment the server_name attribute in nginx/project.config has to be replaced by personal url.
