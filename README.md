@@ -11,23 +11,22 @@ The VMRP Web App is a routeplanner for the city of Munich, that enables to plan 
 - (coming soon ...) get further information on the external costs of a particular route 
 
 ## Use of Web-App (coming soon ...)
-The VMRP Web-App is already deployed and can be accessed at sasim.mcube-cluster.de. It is to note, that the current version 0.2 is a beta-version, and bugs can occur.
+The VMRP Web-App is already deployed and can be accessed at http://www.sasim.mcube-cluster.de. It is to note, that the current version 0.2 is a beta-version, and bugs can occur.
 
 ## Get started for Developers
 
 ### Run Project
 Before the project can be run, make sure following steps are done:
 1. clone project to your local repository
-2. add your own file api_keys.py to the config folder. Then add your TIER and DB Api keys in the following format:
+2. add your own API keys to the file config/api_keys.py. You'll need a TIER API key and add it by replacing following attribute:
 
 ```
-dbkey = '[Own DB API-Key]'
 tierkey = '[Own TIER API-Key]'
 ```
 
 3. change constant ROOT_DIR in config/definitions to variant 2 by commenting VARIANT 1 and uncommenting VARIANT 2. VARIANT 1 is needed if you want to build an .exe file
 
-4. The application server can be then deployed locally (--> run app.py). 
+4. The application server can be then deployed locally (--> run wsgi.py). 
 
 ### REST-API
 The Backend REST-Api can be accessed at localhost:5000/plattform/ with the following params:
@@ -57,7 +56,7 @@ For accessing the Web-App Frontend, use localhost:5000/web/ (ideally in chrome w
 ### Structure of Backend
 The backend uses a MVC Architecture. The Model is specified in the directories model/entities and model/enums. Furthermode multiple controller classes are used for the core functionalities, which are called by the TripController class, to create a new trip. To plan a new route create an object of the class TripController and execute the method get_trip() with the input variables start_location and end_location of the internal class Location, and trip_mode of the internal class TripMode.
 
-an example for creating a trip:
+#### example: creating a trip
 ```python
 trip_controller = TripController()
 
@@ -74,14 +73,31 @@ All munich and mode specific variables from research are stored in the directory
 current research or pricing plans of the mobility sharing services change, these csv. files must be updated.
 
 ### Frontend
-The frontend was developed using the Dart and SDK Flutter. To integrate the frontend into the flask application server, a Flutter build file has to be created and then the content of build/web folder has to be added to the flask_app/templates folder. IMPORTANT: in flask_app/templates/index.html the line 
+The frontend was developed using the Dart and SDK Flutter. 
+
+#### integration into flask web app
+To integrate the frontend into the flask application server, a Flutter build file has to be created by using the build command
+```console
+  flutter build web
+```
+and then the content of build/web folder has to be added to the flask_app/templates folder. IMPORTANT: in flask_app/templates/index.html the line 
 ```python
   <base href="/">
 ```
 has to be replaced by
-```python
+```
   <base href="/web/">
 ```
+
+#### running flutter web server locally
+to run to flutter web server locally use the command
+```console
+  flutter run
+```
+by default the remote backend server deployed at the Institute of Automotive Technology TUM is used. To use your own local backend server change the url property in flutter_frontend/multimodal_routeplanner/lib/04_infrastructure/datasources/route_remote_datasource.dart
+
+### Deploy using docker container
+The Web-App can be easily deployed using a docker-container. For own deployment the server_name attribute in nginx/project.config has to be replaced by personal url.
 
 ## Contributors
 
