@@ -14,7 +14,7 @@ the external effects of their mobility behaviour.
 - MobiScore: the MobiScore is a score developed by M-Cube, to evaluate the sustainability of a mobility choice for a
   particular route. The MobiScore calculation is based on the distance and the external costs of a route.
 - compare costs, distance and travel time in a bar chart
-- (coming soon ...) get further information on the external costs of a particular route
+- get further information on the external costs of a particular route
 
 ## Use of Web-App (coming soon ...)
 
