@@ -164,7 +164,7 @@ flask backend-server and flutter frontend developed by Gusztáv Ottrubay
 #### Maps:
 
 OpenStreetMap
-https://www.openstreetmap.org/#map=7/47.714/13.349
+https://www.openstreetmap.org/
 
 #### Geocoding:
 
