@@ -7,8 +7,7 @@ import 'package:multimodal_routeplanner/03_domain/enums/MobilityModeEnum.dart';
 class AdvancedSearchInput extends StatelessWidget {
   final AdvancedRoutePlannerBloc routeBlocProvider;
 
-  const AdvancedSearchInput({Key? key, required this.routeBlocProvider})
-      : super(key: key);
+  const AdvancedSearchInput({Key? key, required this.routeBlocProvider}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +45,8 @@ class AdvancedSearchInput extends StatelessWidget {
       ),
       AdvancedRouteButtonWidget(
         loadFirstTrip: () {
-          routeBlocProvider.add(RouteFirstTripEvent(startAddress, endAddress,
-              MobilityMode(mode: MobilityModeEnum.mvg)));
+          routeBlocProvider
+              .add(RouteFirstTripEvent(startAddress, endAddress, MobilityMode(mode: MobilityModeEnum.bike)));
         },
       ),
     ]);

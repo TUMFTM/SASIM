@@ -3,6 +3,9 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_frontend/multimodal_routeplanner/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_frontend/multimodal_routeplanner/build" />
+      <excludeFolder url="file://$MODULE_DIR$/flutter_frontend/multimodal_routeplanner/.pub" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.8 (MA_FG-Modell)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
