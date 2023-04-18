@@ -6,10 +6,9 @@ from typing import List
 import pandas as pd
 import polyline
 import requests
-
 from controllers.otp.OtpHelper import OtpHelper
 from model.entities.location.Location import Location
-from model.enums.mode.Mode import Mode
+from model.enums.mode.TripMode import TripMode
 
 
 class OtpController:
@@ -77,8 +76,7 @@ class OtpController:
 
         return duration / 60
 
-
-    def get_response(self, start_location: Location, end_location: Locaton, mode: TripMode,
+    def get_response(self, start_location: Location, end_location: Location, mode: TripMode,
                      input_time=None, input_waxWalkDistance='500'):
 
         mode = self.otp_helper.mode_to_otp_mode(mode).value
