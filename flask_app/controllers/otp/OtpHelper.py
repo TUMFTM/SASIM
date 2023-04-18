@@ -1,27 +1,25 @@
 from enum import Enum
 
 from model.entities.location.Location import Location
-from model.enums.mode.IndividualMode import IndividualMode
-from model.enums.mode.PublicTransportMode import PublicTransportMode
-from model.enums.mode.SharingMode import SharingMode
+from model.enums.mode.TripMode import TripMode
 
 
 class OtpHelper:
 
-    def mode_to_otp_mode(self, mode: IndividualMode or PublicTransportMode or SharingMode):
+    def mode_to_otp_mode(self, mode: TripMode):
 
-        if(
-                mode == IndividualMode.CAR or mode == IndividualMode.ECAR or mode == IndividualMode.MOPED or
-                mode == IndividualMode.EMOPED or mode == SharingMode.EMMY or mode == SharingMode.FLINKSTER or
-                mode == SharingMode.SHARENOW
+        if (
+                mode == TripMode.CAR or mode == TripMode.ECAR or mode == TripMode.MOPED or
+                mode == TripMode.EMOPED or mode == TripMode.EMMY or mode == TripMode.FLINKSTER or
+                mode == TripMode.SHARENOW
         ):
             otp_mode = OtpMode.CAR
 
-        elif(mode == IndividualMode.BICYCLE or mode == IndividualMode.EBICYCLE or
-             mode == SharingMode.CAB or mode == SharingMode.TIER):
-            otp_mode = OtpMode.BICYCLE
+        elif (mode == TripMode.BICYCLE or mode == TripMode.EBICYCLE or
+              mode == TripMode.CAB or mode == TripMode.TIER):
+            otp_mode = TripMode.BICYCLE
 
-        elif(mode == IndividualMode.WALK):
+        elif (mode == TripMode.WALK):
             otp_mode = OtpMode.WALK
 
         else:

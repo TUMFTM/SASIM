@@ -1,14 +1,16 @@
+from enum import Enum
+
 from controllers.costs.CostsController import CostsController
 from controllers.mobi_score.MobiScoreController import MobiScoreController
-from controllers.mvv.MvvController import MvvController
-# from controllers.otp.OtpController import OtpController
 from controllers.muenchenapi.MunchenapiController import MuenchenapiController
+from controllers.mvv.MvvController import MvvController
+from controllers.otp.OtpController import OtpController
 from controllers.sharing.EmmyController import EmmyController
 from controllers.sharing.ShareNowController import ShareNowController
 from controllers.sharing.TierController import TierController
 from controllers.sharing.deutsche_bahn.CallABikeController import CallABikeController
 from controllers.sharing.deutsche_bahn.FlinksterController import FlinksterController
-
+from helpers.GeoHelper import GeoHelper
 from model.entities.costs.Costs import Costs
 from model.entities.costs.ExternalCosts import ExternalCosts
 from model.entities.costs.InternalCosts import InternalCosts
@@ -23,14 +25,18 @@ from model.enums.mode.SharingMode import SharingMode
 from model.enums.mode.TripMode import TripMode
 from model.enums.trip_type.TripType import TripType
 
-from helpers.GeoHelper import GeoHelper
+
+# TODO: enable different types of routing controller
+class RoutingType(Enum):
+    OTP = OtpController()
+    MVGO = MuenchenapiController()
 
 
 class TripController:
     def __init__(self):
 
-        # self._routing_controller = OtpController()
-        self._routing_controller = MuenchenapiController()
+        self._routing_controller = OtpController()
+        # self._routing_controller = MuenchenapiController()
         self._mvv_controller = MvvController()
 
         self._emmy_controller = EmmyController()
